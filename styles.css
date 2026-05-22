@@ -628,7 +628,7 @@ ul { list-style: none; }
   -webkit-background-clip: text;
   margin-bottom: 0;
   position: relative;
-  filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.4));
+  /* filter removed — filter+background-clip:text breaks on Chromium/Safari */
 }
 
 .title-letter {
@@ -1932,9 +1932,9 @@ ul { list-style: none; }
   transform: translate(-50%, -46%);
   width: min(680px, 92vw);
   height: min(680px, 92vw);
-  z-index: 1;
+  z-index: 1;           /* below hero-content (z-index: 3) */
   pointer-events: none;
-  will-change: transform;
+  /* will-change removed — creating a compositing layer here causes z-index fights */
   animation: viz-appear 2s var(--ease-out) 0.3s both;
 }
 
@@ -1946,21 +1946,20 @@ ul { list-style: none; }
 #viz-canvas {
   width: 100%;
   height: 100%;
-  mix-blend-mode: screen;
+  /* mix-blend-mode: screen removed — creates compositing layer that eats z-index siblings */
   display: block;
+  opacity: 0.92;
 }
 
-/* Ensure hero content sits above viz */
+/* Ensure hero content sits above viz with full isolation */
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  isolation: isolate;
 }
 
-/* Tighten the hero title glow so it interacts with visualizer */
-.hero-title {
-  filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.5))
-          drop-shadow(0 0 80px rgba(168, 85, 247, 0.2));
-}
+/* REMOVED: .hero-title filter override — filter+background-clip:text breaks title rendering.
+   Glow effect is achieved via the ambient orbs and visualizer behind the title. */
 
 /* On very small screens, shrink the viz */
 @media (max-width: 480px) {
@@ -1979,4 +1978,480 @@ ul { list-style: none; }
 /* Pause when user prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-viz-wrap { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO TITLE GLOW — Separate element trick
+   Avoids filter + background-clip:text Chromium rendering bug
+   ═══════════════════════════════════════════════════════════════ */
+.title-glow-layer {
+  position: absolute;
+  inset: 0;
+  font-family: var(--font-display);
+  font-size: inherit;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--neon-purple);
+  filter: blur(28px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.40; filter: blur(28px); }
+  50%       { opacity: 0.60; filter: blur(22px); }
+}
+
+/* Title letters above glow layer */
+.hero-title .title-letter {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 2B — VIP / MEMBERSHIPS SECTION
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── VIP SECTION WRAPPER ───────────────────────────────────── */
+.vip-section {
+  position: relative;
+  padding: var(--space-2xl) 0 calc(var(--space-2xl) * 1.1);
+  background: var(--black);
+  overflow: hidden;
+}
+
+/* Background decoration */
+.vip-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+
+.vip-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+}
+.vip-bg-orb-1 {
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse, rgba(168,85,247,0.08) 0%, transparent 70%);
+  top: -150px; right: -200px;
+  animation: orb-float 14s ease-in-out infinite;
+}
+.vip-bg-orb-2 {
+  width: 600px; height: 500px;
+  background: radial-gradient(ellipse, rgba(255,45,155,0.06) 0%, transparent 70%);
+  bottom: 0; left: -150px;
+  animation: orb-float 18s ease-in-out reverse infinite;
+}
+
+.vip-bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(168,85,247,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,85,247,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.vip-bg-top-line {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4), rgba(255,45,155,0.3), transparent);
+}
+
+/* ─── VIP GRID ──────────────────────────────────────────────── */
+.vip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2.5rem;
+  align-items: stretch;
+}
+
+/* ─── VIP CARD BASE ─────────────────────────────────────────── */
+.vip-card {
+  position: relative;
+  background: linear-gradient(170deg, var(--surface) 0%, var(--deep) 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-spring),
+              border-color 0.35s,
+              box-shadow 0.35s;
+  cursor: default;
+}
+
+.vip-card:hover {
+  transform: translateY(-10px) scale(1.015);
+}
+
+/* Per-tier hover colors */
+.tier-vip:hover      { border-color: rgba(168,85,247,0.55); box-shadow: 0 24px 60px rgba(168,85,247,0.18), 0 0 40px rgba(168,85,247,0.08); }
+.tier-royal:hover    { border-color: rgba(255,45,155,0.55); box-shadow: 0 24px 60px rgba(255,45,155,0.18), 0 0 40px rgba(255,45,155,0.08); }
+.tier-founder:hover  { border-color: rgba(6,239,197,0.55);  box-shadow: 0 24px 60px rgba(6,239,197,0.15),  0 0 40px rgba(6,239,197,0.06); }
+.tier-backstage:hover{ border-color: rgba(0,200,255,0.55);  box-shadow: 0 24px 60px rgba(0,200,255,0.15),  0 0 40px rgba(0,200,255,0.06); }
+
+/* Royal tier is the featured one — always slightly elevated */
+.tier-royal {
+  border-color: rgba(255,45,155,0.3);
+  background: linear-gradient(170deg, #1c0d28 0%, #2a0d1e 60%, #1a0820 100%);
+  box-shadow: 0 8px 40px rgba(255,45,155,0.1);
+}
+
+/* Founder — limited, gold-ish teal */
+.tier-founder {
+  border-color: rgba(6,239,197,0.2);
+  background: linear-gradient(170deg, #041c18 0%, #081a14 60%, #040e10 100%);
+}
+
+/* Card inner glow (visible on hover) */
+.vip-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.tier-vip      .vip-card-glow { background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(168,85,247,0.12) 0%, transparent 70%); }
+.tier-royal    .vip-card-glow { background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,45,155,0.14) 0%, transparent 70%); }
+.tier-founder  .vip-card-glow { background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(6,239,197,0.10) 0%, transparent 70%); }
+.tier-backstage.vip-card-glow { background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,200,255,0.10) 0%, transparent 70%); }
+.vip-card:hover .vip-card-glow { opacity: 1; }
+
+/* ─── POPULAR & LIMITED RIBBONS ─────────────────────────────── */
+.vip-popular-ribbon,
+.vip-limited-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem 0.4rem 1.2rem;
+  border-radius: 0 20px 0 12px;
+  z-index: 2;
+}
+
+.vip-popular-ribbon {
+  background: linear-gradient(90deg, var(--neon-magenta), #c70077);
+  color: #fff;
+  box-shadow: -4px 4px 20px rgba(255,45,155,0.35);
+}
+
+.vip-limited-badge {
+  background: linear-gradient(90deg, #06EFC5, #00b89c);
+  color: var(--black);
+  box-shadow: -4px 4px 20px rgba(6,239,197,0.3);
+}
+
+/* ─── BADGE VISUAL ──────────────────────────────────────────── */
+.vip-badge-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.25rem;
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+.vip-badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.35s;
+}
+
+.vip-card:hover .vip-badge { transform: scale(1.12) rotate(5deg); }
+
+.badge-vip       { background: radial-gradient(135deg, #4c1d95, #7c3aed); box-shadow: 0 0 30px rgba(124,58,237,0.5); }
+.badge-royal     { background: radial-gradient(135deg, #831843, #db2777); box-shadow: 0 0 30px rgba(219,39,119,0.5); }
+.badge-founder   { background: radial-gradient(135deg, #064e3b, #059669); box-shadow: 0 0 30px rgba(6,239,197,0.45); }
+.badge-backstage { background: radial-gradient(135deg, #0c4a6e, #0284c7); box-shadow: 0 0 30px rgba(0,200,255,0.45); }
+
+.badge-symbol {
+  font-size: 1.9rem;
+  color: rgba(255,255,255,0.95);
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(255,255,255,0.4);
+}
+
+/* Badge pulsing rings */
+.vip-badge-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid;
+  opacity: 0;
+  transition: opacity 0.3s;
+  animation: badge-ring-pulse 2.5s ease-in-out infinite;
+}
+
+.vip-badge-ring-2 {
+  inset: -16px;
+  animation-delay: 0.8s;
+}
+
+.tier-vip      .vip-badge-ring { border-color: rgba(168,85,247,0.5); }
+.tier-royal    .vip-badge-ring { border-color: rgba(255,45,155,0.5); }
+.tier-founder  .vip-badge-ring { border-color: rgba(6,239,197,0.5); }
+.tier-backstage.vip-badge-ring { border-color: rgba(0,200,255,0.5); }
+
+.vip-card:hover .vip-badge-ring { opacity: 1; }
+
+@keyframes badge-ring-pulse {
+  0%   { transform: scale(0.95); opacity: 0.6; }
+  50%  { transform: scale(1.05); opacity: 0.2; }
+  100% { transform: scale(0.95); opacity: 0.6; }
+}
+
+/* ─── TIER LABEL ────────────────────────────────────────────── */
+.vip-tier-label {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.9rem;
+  border-radius: 100px;
+  border: 1px solid;
+}
+
+.tier-label-vip       { color: #c084fc; border-color: rgba(192,132,252,0.3); background: rgba(192,132,252,0.06); }
+.tier-label-royal     { color: #f472b6; border-color: rgba(244,114,182,0.3); background: rgba(244,114,182,0.06); }
+.tier-label-founder   { color: #34d399; border-color: rgba(52,211,153,0.3);  background: rgba(52,211,153,0.06); }
+.tier-label-backstage { color: #38bdf8; border-color: rgba(56,189,248,0.3);  background: rgba(56,189,248,0.06); }
+
+/* ─── CARD NAME & DESC ──────────────────────────────────────── */
+.vip-card-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-bright);
+  margin-bottom: 0.65rem;
+  line-height: 1.2;
+}
+
+.vip-card-desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  max-width: 220px;
+}
+
+/* ─── PRICE ─────────────────────────────────────────────────── */
+.vip-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(0,0,0,0.25);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.vip-price-amount {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-bright);
+}
+
+.tier-royal    .vip-price-amount { color: #f9a8d4; }
+.tier-founder  .vip-price-amount { color: #6ee7b7; }
+.tier-backstage.vip-price-amount { color: #7dd3fc; }
+
+.vip-price-period {
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ─── BENEFITS LIST ─────────────────────────────────────────── */
+.vip-benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+  margin-bottom: 1.75rem;
+  flex: 1;
+  text-align: left;
+}
+
+.vip-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: color 0.2s;
+}
+
+.vip-card:hover .vip-benefit { color: var(--text-bright); }
+
+.benefit-icon {
+  font-size: 0.5rem;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.tier-vip       .benefit-icon { color: #c084fc; }
+.tier-royal     .benefit-icon { color: #f472b6; }
+.tier-founder   .benefit-icon { color: #34d399; }
+.tier-backstage .benefit-icon { color: #38bdf8; }
+
+/* ─── BUY BUTTON ────────────────────────────────────────────── */
+.vip-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.3s;
+  border: none;
+  margin-top: auto;
+}
+
+.vip-btn-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.vip-btn-arrow {
+  transition: transform 0.3s var(--ease-spring);
+  opacity: 0.7;
+}
+
+.vip-btn:hover { transform: translateY(-2px); }
+.vip-btn:hover .vip-btn-arrow { transform: translateX(4px); opacity: 1; }
+.vip-btn:active { transform: scale(0.97); }
+
+/* VIP — purple */
+.vip-btn-buy {
+  background: linear-gradient(135deg, #6d28d9, #9333ea);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(109,40,217,0.4);
+}
+.vip-btn-buy .vip-btn-bg { background: linear-gradient(135deg, #9333ea, #6d28d9); }
+.vip-btn-buy:hover { box-shadow: 0 8px 35px rgba(109,40,217,0.6); }
+.vip-btn-buy:hover .vip-btn-bg { opacity: 1; }
+
+/* Royal — magenta */
+.vip-btn-royal {
+  background: linear-gradient(135deg, #be185d, #ec4899);
+  box-shadow: 0 4px 20px rgba(190,24,93,0.45);
+}
+.vip-btn-royal .vip-btn-bg { background: linear-gradient(135deg, #ec4899, #be185d); }
+.vip-btn-royal:hover { box-shadow: 0 8px 35px rgba(236,72,153,0.6); }
+
+/* Founder — teal */
+.vip-btn-founder {
+  background: linear-gradient(135deg, #065f46, #059669);
+  box-shadow: 0 4px 20px rgba(5,150,105,0.4);
+}
+.vip-btn-founder .vip-btn-bg { background: linear-gradient(135deg, #059669, #065f46); }
+.vip-btn-founder:hover { box-shadow: 0 8px 35px rgba(6,239,197,0.4); }
+
+/* Backstage — cyan */
+.vip-btn-backstage {
+  background: linear-gradient(135deg, #0369a1, #0ea5e9);
+  box-shadow: 0 4px 20px rgba(14,165,233,0.4);
+}
+.vip-btn-backstage .vip-btn-bg { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+.vip-btn-backstage:hover { box-shadow: 0 8px 35px rgba(0,200,255,0.5); }
+
+/* ─── COMPARE NOTE ──────────────────────────────────────────── */
+.vip-compare-note {
+  position: relative;
+  z-index: 1;
+  margin-top: 1rem;
+}
+
+.compare-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba(168,85,247,0.05);
+  border: 1px solid rgba(168,85,247,0.12);
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.compare-inner p {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.7;
+}
+
+.compare-icon {
+  font-size: 0.5rem;
+  color: var(--neon-purple);
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .vip-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+}
+
+@media (max-width: 700px) {
+  .vip-grid { grid-template-columns: 1fr; max-width: 440px; }
+  .vip-card { padding: 1.75rem 1.25rem; }
+  .compare-inner { flex-direction: column; gap: 0.5rem; padding: 1rem; }
+  .compare-inner p { font-size: 0.68rem; }
 }

@@ -204,6 +204,8 @@
 
         <!-- Main Title -->
         <h1 class="hero-title reveal-item" style="--delay:0.5s" aria-label="INSOMNIA">
+          <!-- Glow layer: separate element avoids filter+background-clip:text Chromium bug -->
+          <span class="title-glow-layer" aria-hidden="true">INSOMNIA</span>
           <span class="title-letter" style="--li:0">I</span><span
                class="title-letter" style="--li:1">N</span><span
                class="title-letter" style="--li:2">S</span><span
@@ -711,17 +713,298 @@
       </div><!-- /section-container -->
     </section>
 
+    <!-- ═══════════════════════════════════════════
+         VIP / MEMBERSHIPS SECTION
+    ════════════════════════════════════════════ -->
+    <section class="vip-section" id="vip" aria-label="VIP Memberships">
+
+      <!-- Background atmosphere -->
+      <div class="vip-bg" aria-hidden="true">
+        <div class="vip-bg-orb vip-bg-orb-1"></div>
+        <div class="vip-bg-orb vip-bg-orb-2"></div>
+        <div class="vip-bg-grid"></div>
+        <div class="vip-bg-top-line"></div>
+      </div>
+
+      <div class="section-container">
+
+        <!-- ── Section Header ── -->
+        <div class="section-header scroll-reveal">
+          <div class="section-eyebrow">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            <span data-i18n="vip_eyebrow">Exclusive Memberships</span>
+            <span class="eyebrow-line" aria-hidden="true"></span>
+          </div>
+          <h2 class="section-title" data-i18n="vip_title">Choose Your Status</h2>
+          <p class="section-subtitle" data-i18n="vip_subtitle">
+            Every tier unlocks a different layer of the night. The higher you go, the deeper you get in.
+          </p>
+        </div>
+
+        <!-- ── Tier Cards Grid ── -->
+        <div class="vip-grid" role="list">
+
+          <!-- ──────────────── TIER 1: VIP ──────────────── -->
+          <article class="vip-card tier-vip scroll-reveal" role="listitem" style="--sr-delay:0.05s">
+            <div class="vip-card-glow" aria-hidden="true"></div>
+
+            <!-- Badge -->
+            <div class="vip-badge-wrap" aria-hidden="true">
+              <div class="vip-badge badge-vip">
+                <span class="badge-symbol">◈</span>
+              </div>
+              <div class="vip-badge-ring"></div>
+              <div class="vip-badge-ring vip-badge-ring-2"></div>
+            </div>
+
+            <!-- Tier label -->
+            <div class="vip-tier-label tier-label-vip" data-i18n="tier_vip_label">VIP</div>
+
+            <!-- Name & description -->
+            <h3 class="vip-card-name" data-i18n="tier_vip_name">VIP Access</h3>
+            <p class="vip-card-desc" data-i18n="tier_vip_desc">
+              Enter the exclusive lounge. Your identity upgrades the moment you join.
+            </p>
+
+            <!-- Price -->
+            <div class="vip-price">
+              <span class="vip-price-amount" data-i18n="tier_vip_price">Coming Soon</span>
+              <span class="vip-price-period" data-i18n="tier_price_robux">Robux</span>
+            </div>
+
+            <!-- Benefits list -->
+            <ul class="vip-benefits" aria-label="VIP benefits">
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="vip_b1">VIP lounge access</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="vip_b2">Exclusive VIP tag in-game</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="vip_b3">Special name color</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="vip_b4">Premium emotes</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="vip_b5">Priority entry to all events</span>
+              </li>
+            </ul>
+
+            <!-- CTA -->
+            <button class="vip-btn vip-btn-buy" data-tier="vip" aria-label="Buy VIP">
+              <span class="vip-btn-bg" aria-hidden="true"></span>
+              <span data-i18n="btn_buy_vip">Get VIP</span>
+              <span class="vip-btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </article>
+
+          <!-- ──────────────── TIER 2: ROYAL VIP ──────────────── -->
+          <article class="vip-card tier-royal scroll-reveal" role="listitem" style="--sr-delay:0.12s">
+            <div class="vip-card-glow" aria-hidden="true"></div>
+
+            <!-- Most popular ribbon -->
+            <div class="vip-popular-ribbon" data-i18n="vip_popular">Most Popular</div>
+
+            <!-- Badge -->
+            <div class="vip-badge-wrap" aria-hidden="true">
+              <div class="vip-badge badge-royal">
+                <span class="badge-symbol">♛</span>
+              </div>
+              <div class="vip-badge-ring"></div>
+              <div class="vip-badge-ring vip-badge-ring-2"></div>
+            </div>
+
+            <div class="vip-tier-label tier-label-royal" data-i18n="tier_royal_label">ROYAL VIP</div>
+            <h3 class="vip-card-name" data-i18n="tier_royal_name">Royal Status</h3>
+            <p class="vip-card-desc" data-i18n="tier_royal_desc">
+              Command the room. Royal VIPs receive the highest treatment across every event.
+            </p>
+
+            <div class="vip-price">
+              <span class="vip-price-amount" data-i18n="tier_royal_price">Coming Soon</span>
+              <span class="vip-price-period" data-i18n="tier_price_robux">Robux</span>
+            </div>
+
+            <ul class="vip-benefits" aria-label="Royal VIP benefits">
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="royal_b1">VVIP access — top-tier areas</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="royal_b2">Premium table priority booking</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="royal_b3">Special overhead crown title</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="royal_b4">Royal Discord role & recognition</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="royal_b5">Exclusive Royal-only events</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="royal_b6">Premium visual effects in-game</span>
+              </li>
+            </ul>
+
+            <button class="vip-btn vip-btn-buy vip-btn-royal" data-tier="royal" aria-label="Buy Royal VIP">
+              <span class="vip-btn-bg" aria-hidden="true"></span>
+              <span data-i18n="btn_buy_royal">Get Royal VIP</span>
+              <span class="vip-btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </article>
+
+          <!-- ──────────────── TIER 3: FOUNDER ──────────────── -->
+          <article class="vip-card tier-founder scroll-reveal" role="listitem" style="--sr-delay:0.20s">
+            <div class="vip-card-glow" aria-hidden="true"></div>
+
+            <!-- Limited badge -->
+            <div class="vip-limited-badge" data-i18n="vip_limited">⚡ Limited</div>
+
+            <div class="vip-badge-wrap" aria-hidden="true">
+              <div class="vip-badge badge-founder">
+                <span class="badge-symbol">◉</span>
+              </div>
+              <div class="vip-badge-ring"></div>
+              <div class="vip-badge-ring vip-badge-ring-2"></div>
+            </div>
+
+            <div class="vip-tier-label tier-label-founder" data-i18n="tier_founder_label">FOUNDER</div>
+            <h3 class="vip-card-name" data-i18n="tier_founder_name">Founder Pass</h3>
+            <p class="vip-card-desc" data-i18n="tier_founder_desc">
+              Be part of history. Founders built INSOMNIA — your name lives in the wall forever.
+            </p>
+
+            <div class="vip-price">
+              <span class="vip-price-amount" data-i18n="tier_founder_price">Coming Soon</span>
+              <span class="vip-price-period" data-i18n="tier_price_limited">Limited Slots</span>
+            </div>
+
+            <ul class="vip-benefits" aria-label="Founder benefits">
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="founder_b1">Limited founder status — forever</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="founder_b2">Name on the INSOMNIA historical wall</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="founder_b3">Exclusive Founder Discord role</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="founder_b4">Permanent community recognition</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="founder_b5">Early supporter identity badge</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="founder_b6">Invite-only private events</span>
+              </li>
+            </ul>
+
+            <button class="vip-btn vip-btn-buy vip-btn-founder" data-tier="founder" aria-label="Buy Founder Pass">
+              <span class="vip-btn-bg" aria-hidden="true"></span>
+              <span data-i18n="btn_buy_founder">Claim Founder Pass</span>
+              <span class="vip-btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </article>
+
+          <!-- ──────────────── TIER 4: BACKSTAGE PASS ──────────────── -->
+          <article class="vip-card tier-backstage scroll-reveal" role="listitem" style="--sr-delay:0.28s">
+            <div class="vip-card-glow" aria-hidden="true"></div>
+
+            <div class="vip-badge-wrap" aria-hidden="true">
+              <div class="vip-badge badge-backstage">
+                <span class="badge-symbol">◎</span>
+              </div>
+              <div class="vip-badge-ring"></div>
+              <div class="vip-badge-ring vip-badge-ring-2"></div>
+            </div>
+
+            <div class="vip-tier-label tier-label-backstage" data-i18n="tier_bs_label">BACKSTAGE</div>
+            <h3 class="vip-card-name" data-i18n="tier_bs_name">Backstage Pass</h3>
+            <p class="vip-card-desc" data-i18n="tier_bs_desc">
+              Go where no guest can follow. Backstage is where the real night happens.
+            </p>
+
+            <div class="vip-price">
+              <span class="vip-price-amount" data-i18n="tier_bs_price">Coming Soon</span>
+              <span class="vip-price-period" data-i18n="tier_price_robux">Robux</span>
+            </div>
+
+            <ul class="vip-benefits" aria-label="Backstage Pass benefits">
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="bs_b1">Full backstage zone access</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="bs_b2">DJ booth area access</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="bs_b3">Private exclusive events</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="bs_b4">All restricted areas unlocked</span>
+              </li>
+              <li class="vip-benefit">
+                <span class="benefit-icon" aria-hidden="true">✦</span>
+                <span data-i18n="bs_b5">Direct staff interaction access</span>
+              </li>
+            </ul>
+
+            <button class="vip-btn vip-btn-buy vip-btn-backstage" data-tier="backstage" aria-label="Buy Backstage Pass">
+              <span class="vip-btn-bg" aria-hidden="true"></span>
+              <span data-i18n="btn_buy_bs">Get Backstage Pass</span>
+              <span class="vip-btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </article>
+
+        </div><!-- /vip-grid -->
+
+        <!-- ── Comparison note ── -->
+        <div class="vip-compare-note scroll-reveal">
+          <div class="compare-inner">
+            <span class="compare-icon" aria-hidden="true">◆</span>
+            <p data-i18n="vip_compare_note">
+              All memberships are purchased inside Roblox via Developer Products. Prices will be announced at launch.
+            </p>
+            <span class="compare-icon" aria-hidden="true">◆</span>
+          </div>
+        </div>
+
+      </div><!-- /section-container -->
+    </section>
+
     <!-- ─── PHASE PROGRESS PLACEHOLDER ──────────── -->
     <section class="phase-placeholder" id="coming-soon" aria-label="Coming soon">
       <div class="phase-inner">
         <div class="phase-icon" aria-hidden="true">◈</div>
         <h2 class="phase-title" data-i18n="phase_title">More sections loading soon</h2>
         <p class="phase-sub" data-i18n="phase_sub">
-          VIP · Hall of Fame · Reservations · Jobs · Gallery · Community · Business
+          Hall of Fame · Reservations · Jobs · Gallery · Community · Business
         </p>
         <div class="phase-progress" aria-hidden="true">
-          <span class="progress-label" data-i18n="progress_label">Phase 2A of 3 — Events</span>
-          <div class="progress-bar"><div class="progress-fill" style="width:52%"></div></div>
+          <span class="progress-label" data-i18n="progress_label">Phase 2B of 3 — VIP</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
         </div>
       </div>
     </section>

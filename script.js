@@ -1293,3 +1293,209 @@ function initHeroVisualizer() {
 
 /* ── INIT ON DOM READY ───────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', initHeroVisualizer);
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 2B — VIP / MEMBERSHIPS
+   ═══════════════════════════════════════════════════════════════ */
+
+(function extendVIPTranslations() {
+  const ext = {
+    en: {
+      /* Section */
+      vip_eyebrow:  'Exclusive Memberships',
+      vip_title:    'Choose Your Status',
+      vip_subtitle: 'Every tier unlocks a different layer of the night. The higher you go, the deeper you get in.',
+      vip_popular:  'Most Popular',
+      vip_limited:  '⚡ Limited',
+
+      /* Tier labels */
+      tier_vip_label:      'VIP',
+      tier_royal_label:    'ROYAL VIP',
+      tier_founder_label:  'FOUNDER',
+      tier_bs_label:       'BACKSTAGE',
+
+      /* Tier names */
+      tier_vip_name:    'VIP Access',
+      tier_royal_name:  'Royal Status',
+      tier_founder_name:'Founder Pass',
+      tier_bs_name:     'Backstage Pass',
+
+      /* Descriptions */
+      tier_vip_desc:    'Enter the exclusive lounge. Your identity upgrades the moment you join.',
+      tier_royal_desc:  'Command the room. Royal VIPs receive the highest treatment across every event.',
+      tier_founder_desc:'Be part of history. Founders built INSOMNIA — your name lives in the wall forever.',
+      tier_bs_desc:     'Go where no guest can follow. Backstage is where the real night happens.',
+
+      /* Prices */
+      tier_vip_price:     'Coming Soon',
+      tier_royal_price:   'Coming Soon',
+      tier_founder_price: 'Coming Soon',
+      tier_bs_price:      'Coming Soon',
+      tier_price_robux:   'Robux',
+      tier_price_limited: 'Limited Slots',
+
+      /* VIP benefits */
+      vip_b1: 'VIP lounge access',
+      vip_b2: 'Exclusive VIP tag in-game',
+      vip_b3: 'Special name color',
+      vip_b4: 'Premium emotes',
+      vip_b5: 'Priority entry to all events',
+
+      /* Royal benefits */
+      royal_b1: 'VVIP access — top-tier areas',
+      royal_b2: 'Premium table priority booking',
+      royal_b3: 'Special overhead crown title',
+      royal_b4: 'Royal Discord role & recognition',
+      royal_b5: 'Exclusive Royal-only events',
+      royal_b6: 'Premium visual effects in-game',
+
+      /* Founder benefits */
+      founder_b1: 'Limited founder status — forever',
+      founder_b2: 'Name on the INSOMNIA historical wall',
+      founder_b3: 'Exclusive Founder Discord role',
+      founder_b4: 'Permanent community recognition',
+      founder_b5: 'Early supporter identity badge',
+      founder_b6: 'Invite-only private events',
+
+      /* Backstage benefits */
+      bs_b1: 'Full backstage zone access',
+      bs_b2: 'DJ booth area access',
+      bs_b3: 'Private exclusive events',
+      bs_b4: 'All restricted areas unlocked',
+      bs_b5: 'Direct staff interaction access',
+
+      /* Buttons */
+      btn_buy_vip:     'Get VIP',
+      btn_buy_royal:   'Get Royal VIP',
+      btn_buy_founder: 'Claim Founder Pass',
+      btn_buy_bs:      'Get Backstage Pass',
+
+      /* Compare note */
+      vip_compare_note: 'All memberships are purchased inside Roblox via Developer Products. Prices will be announced at launch.',
+    },
+
+    es: {
+      /* Section */
+      vip_eyebrow:  'Membresías Exclusivas',
+      vip_title:    'Elige Tu Estatus',
+      vip_subtitle: 'Cada nivel desbloquea una capa diferente de la noche. Cuanto más alto llegues, más profundo entras.',
+      vip_popular:  'Más Popular',
+      vip_limited:  '⚡ Limitado',
+
+      /* Tier labels */
+      tier_vip_label:      'VIP',
+      tier_royal_label:    'ROYAL VIP',
+      tier_founder_label:  'FUNDADOR',
+      tier_bs_label:       'BACKSTAGE',
+
+      /* Tier names */
+      tier_vip_name:    'Acceso VIP',
+      tier_royal_name:  'Estatus Royal',
+      tier_founder_name:'Pase Fundador',
+      tier_bs_name:     'Pase Backstage',
+
+      /* Descriptions */
+      tier_vip_desc:    'Entra al lounge exclusivo. Tu identidad mejora en el momento en que te unes.',
+      tier_royal_desc:  'Domina el lugar. Los Royal VIP reciben el mejor trato en cada evento.',
+      tier_founder_desc:'Sé parte de la historia. Los Fundadores construyeron INSOMNIA — tu nombre vive en el muro para siempre.',
+      tier_bs_desc:     'Ve donde ningún invitado puede seguirte. El backstage es donde ocurre la verdadera noche.',
+
+      /* Prices */
+      tier_vip_price:     'Próximamente',
+      tier_royal_price:   'Próximamente',
+      tier_founder_price: 'Próximamente',
+      tier_bs_price:      'Próximamente',
+      tier_price_robux:   'Robux',
+      tier_price_limited: 'Cupos Limitados',
+
+      /* VIP benefits */
+      vip_b1: 'Acceso al lounge VIP',
+      vip_b2: 'Tag VIP exclusivo en el juego',
+      vip_b3: 'Color de nombre especial',
+      vip_b4: 'Emotes premium',
+      vip_b5: 'Entrada prioritaria a todos los eventos',
+
+      /* Royal benefits */
+      royal_b1: 'Acceso VVIP — zonas de primer nivel',
+      royal_b2: 'Reserva prioritaria de mesa premium',
+      royal_b3: 'Título especial de corona sobre el personaje',
+      royal_b4: 'Rol Royal en Discord y reconocimiento',
+      royal_b5: 'Eventos exclusivos solo para Royal',
+      royal_b6: 'Efectos visuales premium en el juego',
+
+      /* Founder benefits */
+      founder_b1: 'Estatus de fundador limitado — para siempre',
+      founder_b2: 'Nombre en el muro histórico de INSOMNIA',
+      founder_b3: 'Rol exclusivo Fundador en Discord',
+      founder_b4: 'Reconocimiento permanente en la comunidad',
+      founder_b5: 'Insignia de identidad de early supporter',
+      founder_b6: 'Eventos privados solo por invitación',
+
+      /* Backstage benefits */
+      bs_b1: 'Acceso completo a la zona backstage',
+      bs_b2: 'Acceso al área de la cabina de DJ',
+      bs_b3: 'Eventos privados exclusivos',
+      bs_b4: 'Todas las zonas restringidas desbloqueadas',
+      bs_b5: 'Acceso de interacción directa con el staff',
+
+      /* Buttons */
+      btn_buy_vip:     'Obtener VIP',
+      btn_buy_royal:   'Obtener Royal VIP',
+      btn_buy_founder: 'Reclamar Pase Fundador',
+      btn_buy_bs:      'Obtener Pase Backstage',
+
+      /* Compare note */
+      vip_compare_note: 'Todas las membresías se compran dentro de Roblox mediante Developer Products. Los precios se anunciarán en el lanzamiento.',
+    }
+  };
+
+  Object.keys(ext).forEach(lang => Object.assign(TRANSLATIONS[lang], ext[lang]));
+})();
+
+/* ── VIP Buy Button interactions ──────────────────────────────── */
+function initVIPButtons() {
+  document.querySelectorAll('.vip-btn[data-tier]').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const tier  = this.getAttribute('data-tier');
+      const lang  = currentLang;
+      const msgs  = {
+        en: { vip: '✓ Coming at launch!', royal: '✓ Coming at launch!', founder: '✓ Limited — coming soon!', backstage: '✓ Coming at launch!' },
+        es: { vip: '✓ Disponible en el lanzamiento!', royal: '✓ Disponible en el lanzamiento!', founder: '✓ Limitado — ¡próximamente!', backstage: '✓ Disponible en el lanzamiento!' },
+      };
+      const original = this.querySelector('span[data-i18n]').textContent;
+      const msg      = (msgs[lang] || msgs.en)[tier] || '✓ Soon!';
+
+      this.querySelector('span[data-i18n]').textContent = msg;
+      this.disabled = true;
+      this.style.opacity = '0.75';
+
+      setTimeout(() => {
+        this.querySelector('span[data-i18n]').textContent = original;
+        this.disabled  = false;
+        this.style.opacity = '';
+      }, 2800);
+    });
+  });
+}
+
+/* ── Scroll reveal for VIP cards ──────────────────────────────── */
+function initVIPScrollReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.style.getPropertyValue('--sr-delay') || '0s';
+        entry.target.style.transitionDelay = delay;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.vip-card.scroll-reveal, .vip-compare-note.scroll-reveal').forEach(el => obs.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initVIPButtons();
+  initVIPScrollReveal();
+  setLanguage(currentLang);
+});
