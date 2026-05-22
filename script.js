@@ -941,3 +941,355 @@ document.addEventListener('DOMContentLoaded', () => {
   // Re-apply language to new keys
   setLanguage(currentLang);
 });
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO VISUALIZER — Audio Energy Ring System
+   Central animated visual: spectrum bars + pulse rings + orbits
+   ═══════════════════════════════════════════════════════════════ */
+
+function initHeroVisualizer() {
+  const canvas = document.getElementById('viz-canvas');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const ctx  = canvas.getContext('2d');
+  const SIZE = 700;
+  const C    = SIZE / 2; // center point
+  canvas.width  = SIZE;
+  canvas.height = SIZE;
+
+  /* ── CONFIG ──────────────────────────────────────────────── */
+  const CFG = {
+    // Spectrum bars
+    barCount:    128,
+    barRadius:   158,
+    barMaxH:     62,
+    barMinH:     3,
+    barWidth:    1.8,
+
+    // Structural rings
+    rings: [
+      { baseR: 132, color: [168,  85, 247], phase: 0.0,  spd: 0.50, rotSpeed: 0.002 },
+      { baseR: 110, color: [  0, 200, 255], phase: 1.9,  spd: 0.80, rotSpeed: -0.003 },
+      { baseR:  88, color: [255,  45, 155], phase: 3.3,  spd: 0.62, rotSpeed: 0.0015 },
+    ],
+
+    // Atmosphere haze rings
+    haze: [{ r: 295 }, { r: 268 }, { r: 242 }],
+
+    // Orbiting particles
+    orbitCount: 9,
+    trailLen:   16,
+  };
+
+  /* ── HELPERS ─────────────────────────────────────────────── */
+  function rgba(hex, a) {
+    const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return m
+      ? `rgba(${parseInt(m[1],16)},${parseInt(m[2],16)},${parseInt(m[3],16)},${a.toFixed(3)})`
+      : `rgba(168,85,247,${a})`;
+  }
+
+  /* ── ORBIT PARTICLES ─────────────────────────────────────── */
+  const COLORS = ['#A855F7','#00C8FF','#FF2D9B','#06EFC5','#7C3AED'];
+  const orbits = Array.from({ length: CFG.orbitCount }, (_, i) => ({
+    radius: 192 + (i % 3) * 30,
+    angle:  (i / CFG.orbitCount) * Math.PI * 2,
+    speed:  (0.0038 + i * 0.0007) * (i % 2 === 0 ? 1 : -1),
+    size:   1.6 + (i % 3) * 0.9,
+    color:  COLORS[i % COLORS.length],
+    trail:  [],
+  }));
+
+  /* ── SIMULATED AUDIO BARS ────────────────────────────────── */
+  // Multi-frequency sine-wave stack — reads as a live EQ
+  function barHeight(i, t) {
+    const pos = i / CFG.barCount;
+    const a = Math.sin(t * 1.15 + pos * Math.PI * 2)        * 0.34;
+    const b = Math.sin(t * 1.80 + pos * Math.PI * 4 + 1.6)  * 0.27;
+    const c = Math.sin(t * 2.60 + pos * Math.PI * 8 + 0.9)  * 0.17;
+    const d = Math.sin(t * 0.55 + pos * Math.PI)             * 0.17;
+    const e = Math.sin(t * 3.20 + pos * Math.PI * 6 + 2.4)  * 0.05;
+    const raw = Math.max(0, Math.min(1, (a + b + c + d + e + 1) / 2));
+    return CFG.barMinH + raw * CFG.barMaxH;
+  }
+
+  /* ── RING SEGMENTS (dashed arcs for texture) ─────────────── */
+  function drawDashedRing(r, segments, color, alpha, lw, rotation) {
+    const arc = (Math.PI * 2) / segments;
+    const gap = arc * 0.3;
+    ctx.strokeStyle = `rgba(${color[0]},${color[1]},${color[2]},${alpha.toFixed(3)})`;
+    ctx.lineWidth   = lw;
+    ctx.lineCap     = 'round';
+    for (let s = 0; s < segments; s++) {
+      const start = rotation + s * arc;
+      const end   = start + arc - gap;
+      ctx.beginPath();
+      ctx.arc(C, C, r, start, end);
+      ctx.stroke();
+    }
+  }
+
+  /* ── MAIN DRAW LOOP ──────────────────────────────────────── */
+  let time       = 0;
+  let beatTimer  = 0;
+  let beatStr    = 0;
+  let ringRot    = 0;
+  let animId;
+
+  function draw() {
+    ctx.clearRect(0, 0, SIZE, SIZE);
+
+    // ── Beat simulation (every ~2s, strong pulse) ─
+    beatTimer += 0.016;
+    if (beatTimer > 2.05) { beatTimer = 0; beatStr = 1; }
+    beatStr  *= 0.91;
+    ringRot  += 0.002;
+
+    const pulse     = Math.sin(time * 1.3) * 0.5 + 0.5;   // 0→1 slow
+    const fastPulse = Math.sin(time * 2.8) * 0.5 + 0.5;   // 0→1 fast
+    const beat      = beatStr;
+
+    /* ─────────────────────────────────────────────
+       1. OUTER ATMOSPHERE HAZE RINGS
+    ───────────────────────────────────────────── */
+    CFG.haze.forEach(({ r }, hi) => {
+      const animR = r + Math.sin(time * 0.38 + hi * 1.1) * 7 + beat * 14;
+      const alpha = (0.055 - hi * 0.012) * (1 + beat * 0.6);
+
+      const g = ctx.createRadialGradient(C, C, animR - 22, C, C, animR + 22);
+      g.addColorStop(0,   `rgba(168,85,247,0)`);
+      g.addColorStop(0.5, `rgba(168,85,247,${alpha.toFixed(3)})`);
+      g.addColorStop(1,   `rgba(168,85,247,0)`);
+
+      ctx.beginPath();
+      ctx.arc(C, C, animR, 0, Math.PI * 2);
+      ctx.strokeStyle = g;
+      ctx.lineWidth   = 44;
+      ctx.stroke();
+    });
+
+    /* ─────────────────────────────────────────────
+       2. SPECTRUM BARS (the main visual centrepiece)
+    ───────────────────────────────────────────── */
+    ctx.save();
+    for (let i = 0; i < CFG.barCount; i++) {
+      const angle = (i / CFG.barCount) * Math.PI * 2 - Math.PI / 2;
+      const h     = barHeight(i, time) * (1 + beat * 0.45);
+      const r1    = CFG.barRadius;
+      const r2    = r1 + h;
+
+      const x1 = C + Math.cos(angle) * r1;
+      const y1 = C + Math.sin(angle) * r1;
+      const x2 = C + Math.cos(angle) * r2;
+      const y2 = C + Math.sin(angle) * r2;
+
+      const norm = h / (CFG.barMaxH + CFG.barMinH);
+
+      // Per-bar gradient: deep purple base → bright cyan tip
+      const gBar = ctx.createLinearGradient(x1, y1, x2, y2);
+      gBar.addColorStop(0,   `rgba(90,20,200,${(0.45 + norm * 0.3).toFixed(3)})`);
+      gBar.addColorStop(0.5, `rgba(168,85,247,${(0.72 + norm * 0.2).toFixed(3)})`);
+      gBar.addColorStop(1,   `rgba(0,200,255,${(0.45 + norm * 0.5).toFixed(3)})`);
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = gBar;
+      ctx.lineWidth   = CFG.barWidth;
+      ctx.lineCap     = 'round';
+      ctx.stroke();
+
+      // Cyan tip spark on tall bars
+      if (norm > 0.58) {
+        const sparkA = (norm - 0.58) / 0.42;
+        ctx.beginPath();
+        ctx.arc(x2, y2, 2.8 * sparkA, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,220,255,${(sparkA * 0.75).toFixed(3)})`;
+        ctx.fill();
+      }
+
+      // Occasional magenta accent bar (every 8th bar)
+      if (i % 8 === 0 && norm > 0.45) {
+        ctx.beginPath();
+        ctx.arc(x2, y2, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,45,155,${(norm * 0.55).toFixed(3)})`;
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+
+    /* ─────────────────────────────────────────────
+       3. STRUCTURAL INNER RINGS (3 concentric)
+    ───────────────────────────────────────────── */
+    CFG.rings.forEach(({ baseR, color, phase, spd, rotSpeed }, ri) => {
+      const p      = Math.sin(time * spd + phase);
+      const radius = baseR + p * 5 + beat * 7;
+      const alpha  = 0.28 + p * 0.14;
+      const lw     = 1.1 + Math.abs(p) * 1.6;
+      const rot    = ringRot * rotSpeed * 300;
+
+      // Outer glow halo
+      ctx.beginPath();
+      ctx.arc(C, C, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${color[0]},${color[1]},${color[2]},${(alpha * 0.22).toFixed(3)})`;
+      ctx.lineWidth   = lw + 12;
+      ctx.stroke();
+
+      // Solid ring
+      ctx.beginPath();
+      ctx.arc(C, C, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${color[0]},${color[1]},${color[2]},${alpha.toFixed(3)})`;
+      ctx.lineWidth   = lw;
+      ctx.stroke();
+
+      // Dashed segment ring (inner detail) — only on first two rings
+      if (ri < 2) {
+        drawDashedRing(radius - 10, 24, color, alpha * 0.35, 0.8, rot);
+      }
+    });
+
+    /* ─────────────────────────────────────────────
+       4. CORE — the "heart" of the visualizer
+    ───────────────────────────────────────────── */
+
+    // Outer corona burst
+    const coronaR = 62 + pulse * 12 + beat * 18;
+    const corona  = ctx.createRadialGradient(C, C, 0, C, C, coronaR);
+    corona.addColorStop(0,    `rgba(168,85,247,${(0.38 + pulse * 0.17).toFixed(3)})`);
+    corona.addColorStop(0.45, `rgba(130,55,230,${(0.14 + pulse * 0.08).toFixed(3)})`);
+    corona.addColorStop(1,    'rgba(168,85,247,0)');
+    ctx.beginPath();
+    ctx.arc(C, C, coronaR, 0, Math.PI * 2);
+    ctx.fillStyle = corona;
+    ctx.fill();
+
+    // Secondary mid-ring glow (magenta, beat-reactive)
+    if (beat > 0.1) {
+      const beatR = 56 + beat * 20;
+      const bGlow = ctx.createRadialGradient(C, C, 0, C, C, beatR);
+      bGlow.addColorStop(0,   `rgba(255,45,155,0)`);
+      bGlow.addColorStop(0.5, `rgba(255,45,155,${(beat * 0.18).toFixed(3)})`);
+      bGlow.addColorStop(1,   'rgba(255,45,155,0)');
+      ctx.beginPath();
+      ctx.arc(C, C, beatR, 0, Math.PI * 2);
+      ctx.fillStyle = bGlow;
+      ctx.fill();
+    }
+
+    // Crisp core ring
+    ctx.beginPath();
+    ctx.arc(C, C, 42 + pulse * 4 + beat * 5, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(215,165,255,${(0.65 + fastPulse * 0.28).toFixed(3)})`;
+    ctx.lineWidth   = 1.5;
+    ctx.shadowBlur  = 18;
+    ctx.shadowColor = '#A855F7';
+    ctx.stroke();
+    ctx.shadowBlur  = 0;
+
+    // Inner rotating detail ring (dashed)
+    drawDashedRing(
+      35 + pulse * 3,
+      12,
+      [0, 200, 255],
+      0.35 + fastPulse * 0.2,
+      1.2,
+      -ringRot * 1.8
+    );
+
+    // Core fill gradient
+    const core = ctx.createRadialGradient(C, C, 0, C, C, 38);
+    core.addColorStop(0,    `rgba(255,255,255,${(0.28 + fastPulse * 0.12).toFixed(3)})`);
+    core.addColorStop(0.3,  `rgba(200,140,255,${(0.50 + pulse * 0.18).toFixed(3)})`);
+    core.addColorStop(0.65, `rgba(90,25,175,0.28)`);
+    core.addColorStop(1,    'rgba(50,10,100,0)');
+    ctx.beginPath();
+    ctx.arc(C, C, 38, 0, Math.PI * 2);
+    ctx.fillStyle = core;
+    ctx.fill();
+
+    /* ─────────────────────────────────────────────
+       5. ORBITING PARTICLES
+    ───────────────────────────────────────────── */
+    orbits.forEach(p => {
+      p.angle += p.speed * (1 + beat * 0.5);
+      const x = C + Math.cos(p.angle) * p.radius;
+      const y = C + Math.sin(p.angle) * p.radius;
+
+      p.trail.unshift({ x, y });
+      if (p.trail.length > CFG.trailLen) p.trail.pop();
+
+      // Draw trail
+      p.trail.forEach((pt, ti) => {
+        if (ti === 0) return;
+        const progress = 1 - ti / p.trail.length;
+        const a = progress * 0.38;
+        const s = Math.max(0.2, p.size * progress * 0.65);
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, s, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(p.color, a);
+        ctx.fill();
+      });
+
+      // Particle glow halo
+      const pg = ctx.createRadialGradient(x, y, 0, x, y, p.size * 7);
+      pg.addColorStop(0, rgba(p.color, 0.55));
+      pg.addColorStop(1, rgba(p.color, 0));
+      ctx.beginPath();
+      ctx.arc(x, y, p.size * 7, 0, Math.PI * 2);
+      ctx.fillStyle = pg;
+      ctx.fill();
+
+      // Core dot
+      ctx.beginPath();
+      ctx.arc(x, y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(p.color, 0.95);
+      ctx.fill();
+    });
+
+    /* ─────────────────────────────────────────────
+       6. CENTRAL CROSSHAIR MARKERS (subtle, premium)
+    ───────────────────────────────────────────── */
+    const markerCount  = 4;
+    const markerRadius = 72;
+    for (let m = 0; m < markerCount; m++) {
+      const angle = (m / markerCount) * Math.PI * 2 + ringRot * 0.8;
+      const mx = C + Math.cos(angle) * (markerRadius + pulse * 5);
+      const my = C + Math.sin(angle) * (markerRadius + pulse * 5);
+
+      ctx.beginPath();
+      ctx.arc(mx, my, 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,200,255,${(0.4 + fastPulse * 0.3).toFixed(3)})`;
+      ctx.fill();
+
+      // Tiny crosshair lines
+      const len = 5 + pulse * 2;
+      ctx.strokeStyle = `rgba(0,200,255,${(0.25 + fastPulse * 0.2).toFixed(3)})`;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(mx - len, my);
+      ctx.lineTo(mx + len, my);
+      ctx.moveTo(mx, my - len);
+      ctx.lineTo(mx, my + len);
+      ctx.stroke();
+    }
+
+    time   += 0.016;
+    animId  = requestAnimationFrame(draw);
+  }
+
+  /* ── START ───────────────────────────────────────────────── */
+  animId = requestAnimationFrame(draw);
+
+  /* ── PAUSE WHEN HIDDEN ───────────────────────────────────── */
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animId);
+    } else {
+      animId = requestAnimationFrame(draw);
+    }
+  });
+}
+
+/* ── INIT ON DOM READY ───────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', initHeroVisualizer);
