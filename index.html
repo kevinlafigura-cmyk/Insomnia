@@ -141,11 +141,55 @@
       <div class="orb orb-2" aria-hidden="true"></div>
       <div class="orb orb-3" aria-hidden="true"></div>
 
+      <!-- Club Light Beams -->
+      <div class="club-lights" aria-hidden="true">
+        <div class="beam beam-1"></div>
+        <div class="beam beam-2"></div>
+        <div class="beam beam-3"></div>
+        <div class="beam beam-4"></div>
+        <div class="beam beam-5"></div>
+      </div>
+
+      <!-- Floor Glow -->
+      <div class="floor-glow" aria-hidden="true"></div>
+
       <!-- Scanline overlay -->
       <div class="scanlines" aria-hidden="true"></div>
 
+      <!-- Floating Next Event Card -->
+      <div class="hero-next-event reveal-item" style="--delay:2.4s" aria-label="Next event preview">
+        <div class="nev-status">
+          <span class="nev-dot" aria-hidden="true"></span>
+          <span data-i18n="nev_label">Next Event</span>
+        </div>
+        <div class="nev-name" data-i18n="nev_name">Neon Latin Night</div>
+        <div class="nev-meta">
+          <span class="nev-date" data-i18n="nev_date">SAT · JUL 12 · 9PM</span>
+          <span class="nev-sep" aria-hidden="true">·</span>
+          <span class="nev-dj">DJ Phantom</span>
+        </div>
+        <div class="nev-countdown" id="hero-countdown" aria-label="Countdown to event">
+          <div class="nev-unit"><span class="nev-num" id="hcd-d">00</span><span class="nev-lbl" data-i18n="cd_days">d</span></div>
+          <span class="nev-colon" aria-hidden="true">:</span>
+          <div class="nev-unit"><span class="nev-num" id="hcd-h">00</span><span class="nev-lbl" data-i18n="cd_hours">h</span></div>
+          <span class="nev-colon" aria-hidden="true">:</span>
+          <div class="nev-unit"><span class="nev-num" id="hcd-m">00</span><span class="nev-lbl" data-i18n="cd_mins">m</span></div>
+          <span class="nev-colon" aria-hidden="true">:</span>
+          <div class="nev-unit"><span class="nev-num" id="hcd-s">00</span><span class="nev-lbl" data-i18n="cd_secs">s</span></div>
+        </div>
+        <a href="#events" class="nev-cta" data-i18n="nev_cta">See Event →</a>
+      </div>
+
       <!-- Hero Content -->
       <div class="hero-content">
+
+        <!-- Live Soon pill -->
+        <div class="live-soon-pill reveal-item" style="--delay:0.1s" aria-label="Opening soon">
+          <span class="live-pip" aria-hidden="true"></span>
+          <span data-i18n="live_soon">LIVE SOON</span>
+          <span class="live-sep" aria-hidden="true">·</span>
+          <span data-i18n="live_tonight">Tonight's doors open at 9PM</span>
+        </div>
 
         <!-- Live badge -->
         <div class="hero-badge reveal-item" style="--delay:0.2s">
@@ -231,17 +275,448 @@
 
     </section>
 
-    <!-- ─── COMING SOON PLACEHOLDER ────────────────── -->
+    <!-- ─── EVENTS SECTION ────────────────────────── -->
+    <section class="events-section" id="events" aria-label="Events">
+
+      <!-- Section BG atmosphere -->
+      <div class="events-bg" aria-hidden="true">
+        <div class="ev-orb ev-orb-1"></div>
+        <div class="ev-orb ev-orb-2"></div>
+        <div class="ev-grid-lines"></div>
+      </div>
+
+      <div class="section-container">
+
+        <!-- Section Header -->
+        <div class="section-header scroll-reveal">
+          <div class="section-eyebrow">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            <span data-i18n="events_eyebrow">Upcoming Events</span>
+            <span class="eyebrow-line" aria-hidden="true"></span>
+          </div>
+          <h2 class="section-title" data-i18n="events_title">The Night Schedule</h2>
+          <p class="section-subtitle" data-i18n="events_subtitle">
+            Every event is a new world. Dress up, show up, and live the night.
+          </p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="events-filters scroll-reveal" role="tablist" aria-label="Event filters">
+          <button class="ev-filter active" data-filter="all" role="tab" aria-selected="true" data-i18n="filter_all">All Events</button>
+          <button class="ev-filter" data-filter="upcoming" role="tab" aria-selected="false" data-i18n="filter_upcoming">Upcoming</button>
+          <button class="ev-filter" data-filter="vip" role="tab" aria-selected="false" data-i18n="filter_vip">VIP Only</button>
+          <button class="ev-filter" data-filter="past" role="tab" aria-selected="false" data-i18n="filter_past">Past Events</button>
+        </div>
+
+        <!-- Events Grid -->
+        <div class="events-grid" id="events-grid">
+
+          <!-- ── CARD 1: NEON LATIN NIGHT (FEATURED / UPCOMING) ── -->
+          <article class="event-card featured" data-category="upcoming" data-event-date="2025-07-12T21:00:00">
+            <div class="ev-card-glow" aria-hidden="true"></div>
+            <div class="ev-featured-badge" data-i18n="ev_featured">Featured</div>
+
+            <div class="ev-poster">
+              <div class="ev-poster-art neon-latin" aria-hidden="true">
+                <div class="poster-rings"></div>
+                <div class="poster-icon">🎶</div>
+                <div class="poster-shimmer"></div>
+              </div>
+              <div class="ev-status upcoming">
+                <span class="ev-status-dot"></span>
+                <span data-i18n="ev_upcoming">Upcoming</span>
+              </div>
+            </div>
+
+            <div class="ev-card-body">
+              <div class="ev-theme-tag" data-i18n="tag_latin">Latin Night</div>
+              <h3 class="ev-title">Neon Latin Night</h3>
+              <div class="ev-meta-row">
+                <span class="ev-meta-item">
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 .5a.5.5 0 0 1 .5.5v1h5V1a.5.5 0 0 1 1 0v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h1V1A.5.5 0 0 1 5 .5z"/></svg>
+                  <span data-i18n="ev1_date">Saturday, Jul 12 · 9 PM</span>
+                </span>
+              </div>
+              <div class="ev-details-grid">
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dj">DJ</span>
+                  <span class="ev-detail-val">DJ Phantom</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_host">Host</span>
+                  <span class="ev-detail-val">Marisol V.</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dress">Dress Code</span>
+                  <span class="ev-detail-val" data-i18n="ev1_dress">Neon & Urban</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_access">Access</span>
+                  <span class="ev-detail-val" data-i18n="access_open">Open + VIP</span>
+                </div>
+              </div>
+
+              <!-- Countdown -->
+              <div class="ev-countdown" data-target="2025-07-12T21:00:00">
+                <span class="ev-cd-label" data-i18n="ev_starts_in">Starts in</span>
+                <div class="ev-cd-units">
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_days">d</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_hours">h</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_mins">m</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_secs">s</span></div>
+                </div>
+              </div>
+
+              <div class="ev-card-actions">
+                <button class="ev-btn ev-btn-primary" data-i18n="btn_rsvp">RSVP Now</button>
+                <button class="ev-btn ev-btn-secondary" data-i18n="btn_reserve">Reserve Table</button>
+                <button class="ev-btn ev-btn-ghost" data-i18n="btn_join_event">Join Event</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── CARD 2: ROYAL FRIDAY ── -->
+          <article class="event-card" data-category="upcoming" data-event-date="2025-07-18T22:00:00">
+            <div class="ev-card-glow" aria-hidden="true"></div>
+
+            <div class="ev-poster">
+              <div class="ev-poster-art royal-friday" aria-hidden="true">
+                <div class="poster-rings"></div>
+                <div class="poster-icon">👑</div>
+                <div class="poster-shimmer"></div>
+              </div>
+              <div class="ev-status upcoming">
+                <span class="ev-status-dot"></span>
+                <span data-i18n="ev_upcoming">Upcoming</span>
+              </div>
+            </div>
+
+            <div class="ev-card-body">
+              <div class="ev-theme-tag vip-tag" data-i18n="tag_vip_only">VIP Only</div>
+              <h3 class="ev-title">Royal Friday</h3>
+              <div class="ev-meta-row">
+                <span class="ev-meta-item">
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 .5a.5.5 0 0 1 .5.5v1h5V1a.5.5 0 0 1 1 0v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h1V1A.5.5 0 0 1 5 .5z"/></svg>
+                  <span data-i18n="ev2_date">Friday, Jul 18 · 10 PM</span>
+                </span>
+              </div>
+              <div class="ev-details-grid">
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dj">DJ</span>
+                  <span class="ev-detail-val">DJ Crown</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_host">Host</span>
+                  <span class="ev-detail-val">Alexis R.</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dress">Dress Code</span>
+                  <span class="ev-detail-val" data-i18n="ev2_dress">Elegant Black</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_access">Access</span>
+                  <span class="ev-detail-val" data-i18n="access_vip">VIP + Royal</span>
+                </div>
+              </div>
+
+              <div class="ev-countdown" data-target="2025-07-18T22:00:00">
+                <span class="ev-cd-label" data-i18n="ev_starts_in">Starts in</span>
+                <div class="ev-cd-units">
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_days">d</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_hours">h</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_mins">m</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_secs">s</span></div>
+                </div>
+              </div>
+
+              <div class="ev-card-actions">
+                <button class="ev-btn ev-btn-primary" data-i18n="btn_rsvp">RSVP Now</button>
+                <button class="ev-btn ev-btn-secondary" data-i18n="btn_reserve">Reserve Table</button>
+                <button class="ev-btn ev-btn-ghost" data-i18n="btn_join_event">Join Event</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── CARD 3: AFTER HOURS ── -->
+          <article class="event-card" data-category="upcoming" data-event-date="2025-07-26T00:00:00">
+            <div class="ev-card-glow" aria-hidden="true"></div>
+
+            <div class="ev-poster">
+              <div class="ev-poster-art after-hours" aria-hidden="true">
+                <div class="poster-rings"></div>
+                <div class="poster-icon">🌙</div>
+                <div class="poster-shimmer"></div>
+              </div>
+              <div class="ev-status upcoming">
+                <span class="ev-status-dot"></span>
+                <span data-i18n="ev_upcoming">Upcoming</span>
+              </div>
+            </div>
+
+            <div class="ev-card-body">
+              <div class="ev-theme-tag" data-i18n="tag_exclusive">Exclusive</div>
+              <h3 class="ev-title">After Hours</h3>
+              <div class="ev-meta-row">
+                <span class="ev-meta-item">
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 .5a.5.5 0 0 1 .5.5v1h5V1a.5.5 0 0 1 1 0v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h1V1A.5.5 0 0 1 5 .5z"/></svg>
+                  <span data-i18n="ev3_date">Sat, Jul 26 · Midnight</span>
+                </span>
+              </div>
+              <div class="ev-details-grid">
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dj">DJ</span>
+                  <span class="ev-detail-val">DJ Noir</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_host">Host</span>
+                  <span class="ev-detail-val">Kai M.</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dress">Dress Code</span>
+                  <span class="ev-detail-val" data-i18n="ev3_dress">All Black</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_access">Access</span>
+                  <span class="ev-detail-val" data-i18n="access_backstage">Backstage Pass</span>
+                </div>
+              </div>
+
+              <div class="ev-countdown" data-target="2025-07-26T00:00:00">
+                <span class="ev-cd-label" data-i18n="ev_starts_in">Starts in</span>
+                <div class="ev-cd-units">
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_days">d</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_hours">h</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_mins">m</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_secs">s</span></div>
+                </div>
+              </div>
+
+              <div class="ev-card-actions">
+                <button class="ev-btn ev-btn-primary" data-i18n="btn_rsvp">RSVP Now</button>
+                <button class="ev-btn ev-btn-secondary" data-i18n="btn_reserve">Reserve Table</button>
+                <button class="ev-btn ev-btn-ghost" data-i18n="btn_join_event">Join Event</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── CARD 4: WHITE PARTY ── -->
+          <article class="event-card" data-category="upcoming" data-event-date="2025-08-02T21:00:00">
+            <div class="ev-card-glow" aria-hidden="true"></div>
+
+            <div class="ev-poster">
+              <div class="ev-poster-art white-party" aria-hidden="true">
+                <div class="poster-rings"></div>
+                <div class="poster-icon">🤍</div>
+                <div class="poster-shimmer"></div>
+              </div>
+              <div class="ev-status upcoming">
+                <span class="ev-status-dot"></span>
+                <span data-i18n="ev_upcoming">Upcoming</span>
+              </div>
+            </div>
+
+            <div class="ev-card-body">
+              <div class="ev-theme-tag" data-i18n="tag_themed">Themed Night</div>
+              <h3 class="ev-title">White Party</h3>
+              <div class="ev-meta-row">
+                <span class="ev-meta-item">
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 .5a.5.5 0 0 1 .5.5v1h5V1a.5.5 0 0 1 1 0v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h1V1A.5.5 0 0 1 5 .5z"/></svg>
+                  <span data-i18n="ev4_date">Saturday, Aug 2 · 9 PM</span>
+                </span>
+              </div>
+              <div class="ev-details-grid">
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dj">DJ</span>
+                  <span class="ev-detail-val">DJ Luna</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_host">Host</span>
+                  <span class="ev-detail-val">Sofia T.</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dress">Dress Code</span>
+                  <span class="ev-detail-val" data-i18n="ev4_dress">Full White Only</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_access">Access</span>
+                  <span class="ev-detail-val" data-i18n="access_open">Open + VIP</span>
+                </div>
+              </div>
+
+              <div class="ev-countdown" data-target="2025-08-02T21:00:00">
+                <span class="ev-cd-label" data-i18n="ev_starts_in">Starts in</span>
+                <div class="ev-cd-units">
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_days">d</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_hours">h</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_mins">m</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_secs">s</span></div>
+                </div>
+              </div>
+
+              <div class="ev-card-actions">
+                <button class="ev-btn ev-btn-primary" data-i18n="btn_rsvp">RSVP Now</button>
+                <button class="ev-btn ev-btn-secondary" data-i18n="btn_reserve">Reserve Table</button>
+                <button class="ev-btn ev-btn-ghost" data-i18n="btn_join_event">Join Event</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── CARD 5: INSOMNIA FESTIVAL (VIP) ── -->
+          <article class="event-card vip-card" data-category="vip" data-event-date="2025-08-16T20:00:00">
+            <div class="ev-card-glow vip-glow" aria-hidden="true"></div>
+
+            <div class="ev-poster">
+              <div class="ev-poster-art festival" aria-hidden="true">
+                <div class="poster-rings"></div>
+                <div class="poster-icon">🎪</div>
+                <div class="poster-shimmer"></div>
+              </div>
+              <div class="ev-status vip-status">
+                <span class="ev-status-dot"></span>
+                <span data-i18n="ev_vip_only">VIP Only</span>
+              </div>
+            </div>
+
+            <div class="ev-card-body">
+              <div class="ev-theme-tag vip-tag" data-i18n="tag_festival">Festival Night</div>
+              <h3 class="ev-title">INSOMNIA Festival Night</h3>
+              <div class="ev-meta-row">
+                <span class="ev-meta-item">
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 .5a.5.5 0 0 1 .5.5v1h5V1a.5.5 0 0 1 1 0v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h1V1A.5.5 0 0 1 5 .5z"/></svg>
+                  <span data-i18n="ev5_date">Saturday, Aug 16 · 8 PM</span>
+                </span>
+              </div>
+              <div class="ev-details-grid">
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dj">DJ Lineup</span>
+                  <span class="ev-detail-val">4 DJs</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_host">Host</span>
+                  <span class="ev-detail-val">INSOMNIA Staff</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dress">Dress Code</span>
+                  <span class="ev-detail-val" data-i18n="ev5_dress">Festival Vibes</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_access">Access</span>
+                  <span class="ev-detail-val" data-i18n="access_vip">VIP + Founders</span>
+                </div>
+              </div>
+
+              <div class="ev-countdown" data-target="2025-08-16T20:00:00">
+                <span class="ev-cd-label" data-i18n="ev_starts_in">Starts in</span>
+                <div class="ev-cd-units">
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_days">d</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_hours">h</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_mins">m</span></div>
+                  <span class="ev-cd-sep">:</span>
+                  <div class="ev-cd-unit"><span class="ev-cd-num">00</span><span class="ev-cd-lbl" data-i18n="cd_secs">s</span></div>
+                </div>
+              </div>
+
+              <div class="ev-card-actions">
+                <button class="ev-btn ev-btn-primary" data-i18n="btn_rsvp">RSVP Now</button>
+                <button class="ev-btn ev-btn-secondary" data-i18n="btn_reserve">Reserve Table</button>
+                <button class="ev-btn ev-btn-ghost" data-i18n="btn_join_event">Join Event</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── CARD 6: VIP PRIVATE NIGHT (PAST) ── -->
+          <article class="event-card past-card" data-category="past">
+            <div class="ev-card-glow" aria-hidden="true"></div>
+
+            <div class="ev-poster">
+              <div class="ev-poster-art private-night" aria-hidden="true">
+                <div class="poster-rings"></div>
+                <div class="poster-icon">🔒</div>
+                <div class="poster-shimmer"></div>
+              </div>
+              <div class="ev-status past">
+                <span class="ev-status-dot"></span>
+                <span data-i18n="ev_past">Past Event</span>
+              </div>
+            </div>
+
+            <div class="ev-card-body">
+              <div class="ev-theme-tag past-tag" data-i18n="tag_private">Private Night</div>
+              <h3 class="ev-title">VIP Private Night</h3>
+              <div class="ev-meta-row">
+                <span class="ev-meta-item">
+                  <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 .5a.5.5 0 0 1 .5.5v1h5V1a.5.5 0 0 1 1 0v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h1V1A.5.5 0 0 1 5 .5z"/></svg>
+                  <span data-i18n="ev6_date">Friday, Jun 20 · 10 PM</span>
+                </span>
+              </div>
+              <div class="ev-details-grid">
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dj">DJ</span>
+                  <span class="ev-detail-val">DJ Velvet</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_host">Host</span>
+                  <span class="ev-detail-val">Marco D.</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_dress">Dress Code</span>
+                  <span class="ev-detail-val" data-i18n="ev6_dress">Luxury Only</span>
+                </div>
+                <div class="ev-detail">
+                  <span class="ev-detail-label" data-i18n="ev_attendees">Attendees</span>
+                  <span class="ev-detail-val">87</span>
+                </div>
+              </div>
+
+              <div class="ev-past-note" data-i18n="ev_past_note">
+                This event has ended. Check the gallery for highlights.
+              </div>
+
+              <div class="ev-card-actions">
+                <button class="ev-btn ev-btn-ghost" data-i18n="btn_gallery">View Gallery</button>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- /events-grid -->
+
+        <!-- View All Button -->
+        <div class="events-footer scroll-reveal">
+          <a href="#" class="btn btn-discord" data-i18n="btn_all_events">
+            <span class="btn-bg" aria-hidden="true"></span>
+            <span>View All Events</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div><!-- /section-container -->
+    </section>
+
+    <!-- ─── PHASE PROGRESS PLACEHOLDER ──────────── -->
     <section class="phase-placeholder" id="coming-soon" aria-label="Coming soon">
       <div class="phase-inner">
         <div class="phase-icon" aria-hidden="true">◈</div>
         <h2 class="phase-title" data-i18n="phase_title">More sections loading soon</h2>
         <p class="phase-sub" data-i18n="phase_sub">
-          Events · VIP · Hall of Fame · Reservations · Jobs · Gallery · Community · Business
+          VIP · Hall of Fame · Reservations · Jobs · Gallery · Community · Business
         </p>
         <div class="phase-progress" aria-hidden="true">
-          <span class="progress-label" data-i18n="progress_label">Phase 1 of 3 — Base Structure</span>
-          <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+          <span class="progress-label" data-i18n="progress_label">Phase 2A of 3 — Events</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:52%"></div></div>
         </div>
       </div>
     </section>

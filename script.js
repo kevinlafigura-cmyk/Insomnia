@@ -622,3 +622,322 @@ console.log('%c INSOMNIA %c Nightlife Entertainment — v1.0.0 ',
   'background:#A855F7;color:#fff;font-weight:bold;padding:4px 8px;border-radius:3px 0 0 3px',
   'background:#080510;color:#A855F7;padding:4px 8px;border-radius:0 3px 3px 0;border:1px solid #A855F7'
 );
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 2A — EVENTS + HERO UPGRADES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── NEW i18n KEYS (Phase 2A) ──────────────────────────────── */
+(function extendTranslations() {
+  const ext = {
+    en: {
+      // Hero upgrades
+      live_soon:    'LIVE SOON',
+      live_tonight: "Tonight's doors open at 9PM",
+      nev_label:    'Next Event',
+      nev_name:     'Neon Latin Night',
+      nev_date:     'SAT · JUL 12 · 9PM',
+      nev_cta:      'See Event →',
+      cd_days: 'd', cd_hours: 'h', cd_mins: 'm', cd_secs: 's',
+
+      // Events section
+      events_eyebrow:  'Upcoming Events',
+      events_title:    'The Night Schedule',
+      events_subtitle: 'Every event is a new world. Dress up, show up, and live the night.',
+      filter_all:      'All Events',
+      filter_upcoming: 'Upcoming',
+      filter_vip:      'VIP Only',
+      filter_past:     'Past Events',
+
+      // Event statuses
+      ev_featured: 'Featured',
+      ev_upcoming: 'Upcoming',
+      ev_vip_only: 'VIP Only',
+      ev_past:     'Past Event',
+
+      // Tags
+      tag_latin:    'Latin Night',
+      tag_vip_only: 'VIP Only',
+      tag_exclusive:'Exclusive',
+      tag_themed:   'Themed Night',
+      tag_festival: 'Festival Night',
+      tag_private:  'Private Night',
+
+      // Event dates
+      ev1_date: 'Saturday, Jul 12 · 9 PM',
+      ev2_date: 'Friday, Jul 18 · 10 PM',
+      ev3_date: 'Sat, Jul 26 · Midnight',
+      ev4_date: 'Saturday, Aug 2 · 9 PM',
+      ev5_date: 'Saturday, Aug 16 · 8 PM',
+      ev6_date: 'Friday, Jun 20 · 10 PM',
+
+      // Event details
+      ev_dj:        'DJ',
+      ev_host:      'Host',
+      ev_dress:     'Dress Code',
+      ev_access:    'Access',
+      ev_attendees: 'Attendees',
+      ev1_dress:    'Neon & Urban',
+      ev2_dress:    'Elegant Black',
+      ev3_dress:    'All Black',
+      ev4_dress:    'Full White Only',
+      ev5_dress:    'Festival Vibes',
+      ev6_dress:    'Luxury Only',
+      access_open:      'Open + VIP',
+      access_vip:       'VIP + Royal',
+      access_backstage: 'Backstage Pass',
+
+      // Countdown
+      ev_starts_in: 'Starts in',
+
+      // Past
+      ev_past_note: 'This event has ended. Check the gallery for highlights.',
+
+      // Buttons
+      btn_rsvp:      'RSVP Now',
+      btn_reserve:   'Reserve Table',
+      btn_join_event:'Join Event',
+      btn_gallery:   'View Gallery',
+      btn_all_events:'View All Events',
+    },
+    es: {
+      // Hero upgrades
+      live_soon:    'EN VIVO PRONTO',
+      live_tonight: 'Las puertas abren esta noche a las 9PM',
+      nev_label:    'Próximo Evento',
+      nev_name:     'Neon Latin Night',
+      nev_date:     'SAB · 12 JUL · 9PM',
+      nev_cta:      'Ver Evento →',
+      cd_days: 'd', cd_hours: 'h', cd_mins: 'm', cd_secs: 's',
+
+      // Events section
+      events_eyebrow:  'Próximos Eventos',
+      events_title:    'El Horario de la Noche',
+      events_subtitle: 'Cada evento es un mundo nuevo. Vístete, aparece y vive la noche.',
+      filter_all:      'Todos',
+      filter_upcoming: 'Próximos',
+      filter_vip:      'Solo VIP',
+      filter_past:     'Pasados',
+
+      // Event statuses
+      ev_featured: 'Destacado',
+      ev_upcoming: 'Próximo',
+      ev_vip_only: 'Solo VIP',
+      ev_past:     'Evento Pasado',
+
+      // Tags
+      tag_latin:    'Noche Latina',
+      tag_vip_only: 'Solo VIP',
+      tag_exclusive:'Exclusivo',
+      tag_themed:   'Noche Temática',
+      tag_festival: 'Noche Festival',
+      tag_private:  'Noche Privada',
+
+      // Event dates
+      ev1_date: 'Sábado, 12 Jul · 9 PM',
+      ev2_date: 'Viernes, 18 Jul · 10 PM',
+      ev3_date: 'Sáb, 26 Jul · Medianoche',
+      ev4_date: 'Sábado, 2 Ago · 9 PM',
+      ev5_date: 'Sábado, 16 Ago · 8 PM',
+      ev6_date: 'Viernes, 20 Jun · 10 PM',
+
+      // Event details
+      ev_dj:        'DJ',
+      ev_host:      'Anfitrión',
+      ev_dress:     'Código de Vestimenta',
+      ev_access:    'Acceso',
+      ev_attendees: 'Asistentes',
+      ev1_dress:    'Neón & Urbano',
+      ev2_dress:    'Elegante Negro',
+      ev3_dress:    'Todo Negro',
+      ev4_dress:    'Solo Blanco',
+      ev5_dress:    'Festival Vibes',
+      ev6_dress:    'Solo Lujo',
+      access_open:      'Abierto + VIP',
+      access_vip:       'VIP + Royal',
+      access_backstage: 'Pase Backstage',
+
+      // Countdown
+      ev_starts_in: 'Comienza en',
+
+      // Past
+      ev_past_note: 'Este evento ha terminado. Visita la galería para ver los highlights.',
+
+      // Buttons
+      btn_rsvp:      'Reservar Lugar',
+      btn_reserve:   'Reservar Mesa',
+      btn_join_event:'Unirse al Evento',
+      btn_gallery:   'Ver Galería',
+      btn_all_events:'Ver Todos los Eventos',
+    }
+  };
+
+  // Merge into existing TRANSLATIONS
+  Object.keys(ext).forEach(lang => {
+    Object.assign(TRANSLATIONS[lang], ext[lang]);
+  });
+})();
+
+/* ─── COUNTDOWN ENGINE ──────────────────────────────────────── */
+function getCountdownValues(targetDateStr) {
+  const target = new Date(targetDateStr).getTime();
+  const now    = Date.now();
+  const diff   = target - now;
+
+  if (diff <= 0) return { d:'00', h:'00', m:'00', s:'00', ended: true };
+
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
+
+  const pad = n => String(n).padStart(2, '0');
+  return { d: pad(days), h: pad(hours), m: pad(mins), s: pad(secs), ended: false };
+}
+
+function initAllCountdowns() {
+  // Hero floating card countdown (fixed target = first upcoming event)
+  const heroTarget = '2025-07-12T21:00:00';
+  const heroD = document.getElementById('hcd-d');
+  const heroH = document.getElementById('hcd-h');
+  const heroM = document.getElementById('hcd-m');
+  const heroS = document.getElementById('hcd-s');
+
+  // Card countdowns
+  const cardCountdowns = document.querySelectorAll('.ev-countdown[data-target]');
+
+  function tick() {
+    // Hero card
+    if (heroD) {
+      const v = getCountdownValues(heroTarget);
+      heroD.textContent = v.d;
+      heroH.textContent = v.h;
+      heroM.textContent = v.m;
+      heroS.textContent = v.s;
+    }
+
+    // Event cards
+    cardCountdowns.forEach(block => {
+      const target = block.getAttribute('data-target');
+      if (!target) return;
+      const v = getCountdownValues(target);
+      const nums = block.querySelectorAll('.ev-cd-num');
+      if (nums.length >= 4) {
+        nums[0].textContent = v.d;
+        nums[1].textContent = v.h;
+        nums[2].textContent = v.m;
+        nums[3].textContent = v.s;
+      }
+      if (v.ended) {
+        block.classList.add('ended');
+        const label = block.querySelector('.ev-cd-label');
+        if (label) label.textContent = currentLang === 'es' ? 'Evento finalizado' : 'Event ended';
+      }
+    });
+  }
+
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ─── EVENT FILTER TABS ─────────────────────────────────────── */
+function initEventFilters() {
+  const filters = document.querySelectorAll('.ev-filter');
+  const cards   = document.querySelectorAll('.event-card');
+
+  if (!filters.length) return;
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Active state
+      filters.forEach(f => { f.classList.remove('active'); f.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+
+      const filter = btn.getAttribute('data-filter');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category') || '';
+        const show = filter === 'all' || cat === filter;
+
+        if (show) {
+          card.style.display = '';
+          card.style.animation = 'reveal-up 0.4s var(--ease-out) forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+/* ─── CARD RSVP / RESERVE BUTTON FEEDBACK ───────────────────── */
+function initEventButtons() {
+  document.querySelectorAll('.ev-btn-primary').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const orig = this.textContent;
+      this.textContent = currentLang === 'es' ? '✓ Registrado' : '✓ Registered';
+      this.style.background = 'linear-gradient(135deg, #06EFC5, #00C8FF)';
+      this.disabled = true;
+      setTimeout(() => {
+        this.textContent = orig;
+        this.style.background = '';
+        this.disabled = false;
+      }, 3000);
+    });
+  });
+
+  document.querySelectorAll('.ev-btn-secondary').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Smooth scroll to reservations (future section)
+      const res = document.getElementById('reservations');
+      if (res) {
+        res.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Show a pulse feedback for now
+        this.textContent = currentLang === 'es' ? '→ Reservas pronto' : '→ Coming soon';
+        setTimeout(() => {
+          this.setAttribute('data-i18n', 'btn_reserve');
+          this.textContent = TRANSLATIONS[currentLang]['btn_reserve'];
+        }, 2500);
+      }
+    });
+  });
+}
+
+/* ─── SCROLL REVEAL (reinit for new elements) ────────────────── */
+function initScrollRevealPhase2() {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.style.getPropertyValue('--sr-delay') || '0s';
+        entry.target.style.transitionDelay = delay;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Stagger event cards
+  document.querySelectorAll('.event-card').forEach((card, i) => {
+    card.classList.add('scroll-reveal');
+    card.style.setProperty('--sr-delay', `${i * 0.08}s`);
+    revealObserver.observe(card);
+  });
+
+  // Section headers and filters
+  document.querySelectorAll('.scroll-reveal:not(.event-card)').forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+
+/* ─── INIT ALL PHASE 2A ─────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  initAllCountdowns();
+  initEventFilters();
+  initEventButtons();
+  initScrollRevealPhase2();
+
+  // Re-apply language to new keys
+  setLanguage(currentLang);
+});
