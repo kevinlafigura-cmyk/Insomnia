@@ -1295,74 +1295,79 @@ function initHeroVisualizer() {
 document.addEventListener('DOMContentLoaded', initHeroVisualizer);
 
 /* ═══════════════════════════════════════════════════════════════
-   PHASE 2B — VIP / MEMBERSHIPS
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 2B — VIP / MEMBERSHIPS  (clean rewrite, ms-* namespace)
+   Translations injected BEFORE first setLanguage() call via
+   the extendTranslations pattern, keyed into TRANSLATIONS object
+   directly so i18n works on first render in any language.
    ═══════════════════════════════════════════════════════════════ */
 
-(function extendVIPTranslations() {
-  const ext = {
+/* ── Add VIP keys directly into TRANSLATIONS (both langs) ─── */
+(function addVIPKeys() {
+  const keys = {
     en: {
-      /* Section */
+      /* Header */
       vip_eyebrow:  'Exclusive Memberships',
-      vip_title:    'Choose Your Status',
-      vip_subtitle: 'Every tier unlocks a different layer of the night. The higher you go, the deeper you get in.',
+      vip_title:    'VIP Memberships',
+      vip_subtitle: 'Every tier unlocks a deeper layer of the night. The higher you go, the deeper you enter INSOMNIA.',
       vip_popular:  'Most Popular',
       vip_limited:  '⚡ Limited',
 
-      /* Tier labels */
-      tier_vip_label:      'VIP',
-      tier_royal_label:    'ROYAL VIP',
-      tier_founder_label:  'FOUNDER',
-      tier_bs_label:       'BACKSTAGE',
+      /* Tier labels / names */
+      tier_vip_label:     'VIP',
+      tier_royal_label:   'Royal VIP',
+      tier_founder_label: 'Founder',
+      tier_bs_label:      'Backstage',
 
-      /* Tier names */
       tier_vip_name:    'VIP Access',
       tier_royal_name:  'Royal Status',
       tier_founder_name:'Founder Pass',
       tier_bs_name:     'Backstage Pass',
 
       /* Descriptions */
-      tier_vip_desc:    'Enter the exclusive lounge. Your identity upgrades the moment you join.',
-      tier_royal_desc:  'Command the room. Royal VIPs receive the highest treatment across every event.',
-      tier_founder_desc:'Be part of history. Founders built INSOMNIA — your name lives in the wall forever.',
-      tier_bs_desc:     'Go where no guest can follow. Backstage is where the real night happens.',
+      tier_vip_desc:    'Initial access to the exclusive side of INSOMNIA.',
+      tier_royal_desc:  'Built for members who want presence, premium treatment and real status inside the club.',
+      tier_founder_desc:'A limited pass for the first members who help build INSOMNIA history.',
+      tier_bs_desc:     'Access to the area where the real energy behind the night happens.',
 
       /* Prices */
-      tier_vip_price:     'Coming Soon',
-      tier_royal_price:   'Coming Soon',
-      tier_founder_price: 'Coming Soon',
-      tier_bs_price:      'Coming Soon',
-      tier_price_robux:   'Robux',
-      tier_price_limited: 'Limited Slots',
+      tier_vip_price:    'Coming Soon',
+      tier_royal_price:  'Coming Soon',
+      tier_founder_price:'Coming Soon',
+      tier_bs_price:     'Coming Soon',
+      tier_price_robux:  'Robux',
+      tier_price_limited:'Limited Slots',
 
-      /* VIP benefits */
+      /* Benefits — VIP */
       vip_b1: 'VIP lounge access',
-      vip_b2: 'Exclusive VIP tag in-game',
+      vip_b2: 'In-game VIP tag',
       vip_b3: 'Special name color',
       vip_b4: 'Premium emotes',
-      vip_b5: 'Priority entry to all events',
+      vip_b5: 'Priority event entry',
 
-      /* Royal benefits */
-      royal_b1: 'VVIP access — top-tier areas',
-      royal_b2: 'Premium table priority booking',
-      royal_b3: 'Special overhead crown title',
-      royal_b4: 'Royal Discord role & recognition',
-      royal_b5: 'Exclusive Royal-only events',
-      royal_b6: 'Premium visual effects in-game',
+      /* Benefits — Royal VIP */
+      royal_b1: 'VVIP access',
+      royal_b2: 'Premium table priority',
+      royal_b3: 'Special overhead title',
+      royal_b4: 'Discord role',
+      royal_b5: 'Exclusive events',
+      royal_b6: 'Premium visual effects',
 
-      /* Founder benefits */
-      founder_b1: 'Limited founder status — forever',
-      founder_b2: 'Name on the INSOMNIA historical wall',
-      founder_b3: 'Exclusive Founder Discord role',
-      founder_b4: 'Permanent community recognition',
-      founder_b5: 'Early supporter identity badge',
+      /* Benefits — Founder */
+      founder_b1: 'Limited Founder status',
+      founder_b2: 'Name on the historical wall',
+      founder_b3: 'Founder Discord role',
+      founder_b4: 'Permanent recognition',
+      founder_b5: 'Early supporter identity',
       founder_b6: 'Invite-only private events',
 
-      /* Backstage benefits */
-      bs_b1: 'Full backstage zone access',
+      /* Benefits — Backstage */
+      bs_b1: 'Backstage access',
       bs_b2: 'DJ booth area access',
-      bs_b3: 'Private exclusive events',
-      bs_b4: 'All restricted areas unlocked',
-      bs_b5: 'Direct staff interaction access',
+      bs_b3: 'Private events',
+      bs_b4: 'Exclusive areas',
+      bs_b5: 'Staff interaction',
 
       /* Buttons */
       btn_buy_vip:     'Get VIP',
@@ -1370,73 +1375,72 @@ document.addEventListener('DOMContentLoaded', initHeroVisualizer);
       btn_buy_founder: 'Claim Founder Pass',
       btn_buy_bs:      'Get Backstage Pass',
 
-      /* Compare note */
+      /* Footer note */
       vip_compare_note: 'All memberships are purchased inside Roblox via Developer Products. Prices will be announced at launch.',
     },
 
     es: {
-      /* Section */
+      /* Header */
       vip_eyebrow:  'Membresías Exclusivas',
-      vip_title:    'Elige Tu Estatus',
-      vip_subtitle: 'Cada nivel desbloquea una capa diferente de la noche. Cuanto más alto llegues, más profundo entras.',
+      vip_title:    'Membresías VIP',
+      vip_subtitle: 'Cada nivel desbloquea una nueva capa de la noche. Mientras más alto subes, más profundo entras en INSOMNIA.',
       vip_popular:  'Más Popular',
       vip_limited:  '⚡ Limitado',
 
-      /* Tier labels */
-      tier_vip_label:      'VIP',
-      tier_royal_label:    'ROYAL VIP',
-      tier_founder_label:  'FUNDADOR',
-      tier_bs_label:       'BACKSTAGE',
+      /* Tier labels / names */
+      tier_vip_label:     'VIP',
+      tier_royal_label:   'Royal VIP',
+      tier_founder_label: 'Fundador',
+      tier_bs_label:      'Backstage',
 
-      /* Tier names */
       tier_vip_name:    'Acceso VIP',
       tier_royal_name:  'Estatus Royal',
       tier_founder_name:'Pase Fundador',
       tier_bs_name:     'Pase Backstage',
 
       /* Descriptions */
-      tier_vip_desc:    'Entra al lounge exclusivo. Tu identidad mejora en el momento en que te unes.',
-      tier_royal_desc:  'Domina el lugar. Los Royal VIP reciben el mejor trato en cada evento.',
-      tier_founder_desc:'Sé parte de la historia. Los Fundadores construyeron INSOMNIA — tu nombre vive en el muro para siempre.',
-      tier_bs_desc:     'Ve donde ningún invitado puede seguirte. El backstage es donde ocurre la verdadera noche.',
+      tier_vip_desc:    'Acceso inicial a la zona exclusiva de INSOMNIA.',
+      tier_royal_desc:  'El nivel para quienes quieren presencia, trato premium y estatus real dentro del club.',
+      tier_founder_desc:'Un pase limitado para los primeros miembros que ayuden a construir la historia de INSOMNIA.',
+      tier_bs_desc:     'Acceso a la zona donde ocurre la verdadera energía detrás de la noche.',
 
       /* Prices */
-      tier_vip_price:     'Próximamente',
-      tier_royal_price:   'Próximamente',
-      tier_founder_price: 'Próximamente',
-      tier_bs_price:      'Próximamente',
-      tier_price_robux:   'Robux',
-      tier_price_limited: 'Cupos Limitados',
+      tier_vip_price:    'Próximamente',
+      tier_royal_price:  'Próximamente',
+      tier_founder_price:'Próximamente',
+      tier_bs_price:     'Próximamente',
+      tier_price_robux:  'Robux',
+      tier_price_limited:'Cupos Limitados',
 
-      /* VIP benefits */
+      /* Benefits — VIP */
       vip_b1: 'Acceso al lounge VIP',
-      vip_b2: 'Tag VIP exclusivo en el juego',
-      vip_b3: 'Color de nombre especial',
+      vip_b2: 'Tag VIP dentro del juego',
+      vip_b3: 'Color especial en el nombre',
       vip_b4: 'Emotes premium',
-      vip_b5: 'Entrada prioritaria a todos los eventos',
+      vip_b5: 'Entrada prioritaria a eventos',
 
-      /* Royal benefits */
-      royal_b1: 'Acceso VVIP — zonas de primer nivel',
-      royal_b2: 'Reserva prioritaria de mesa premium',
-      royal_b3: 'Título especial de corona sobre el personaje',
-      royal_b4: 'Rol Royal en Discord y reconocimiento',
-      royal_b5: 'Eventos exclusivos solo para Royal',
-      royal_b6: 'Efectos visuales premium en el juego',
+      /* Benefits — Royal VIP */
+      royal_b1: 'Acceso VVIP',
+      royal_b2: 'Prioridad para mesas premium',
+      royal_b3: 'Título especial sobre el personaje',
+      royal_b4: 'Rol especial en Discord',
+      royal_b5: 'Eventos exclusivos',
+      royal_b6: 'Efectos visuales premium',
 
-      /* Founder benefits */
-      founder_b1: 'Estatus de fundador limitado — para siempre',
-      founder_b2: 'Nombre en el muro histórico de INSOMNIA',
-      founder_b3: 'Rol exclusivo Fundador en Discord',
-      founder_b4: 'Reconocimiento permanente en la comunidad',
-      founder_b5: 'Insignia de identidad de early supporter',
-      founder_b6: 'Eventos privados solo por invitación',
+      /* Benefits — Founder */
+      founder_b1: 'Estatus Founder limitado',
+      founder_b2: 'Nombre en el muro histórico',
+      founder_b3: 'Rol Founder en Discord',
+      founder_b4: 'Reconocimiento permanente',
+      founder_b5: 'Identidad de early supporter',
+      founder_b6: 'Eventos privados por invitación',
 
-      /* Backstage benefits */
-      bs_b1: 'Acceso completo a la zona backstage',
-      bs_b2: 'Acceso al área de la cabina de DJ',
-      bs_b3: 'Eventos privados exclusivos',
-      bs_b4: 'Todas las zonas restringidas desbloqueadas',
-      bs_b5: 'Acceso de interacción directa con el staff',
+      /* Benefits — Backstage */
+      bs_b1: 'Acceso backstage',
+      bs_b2: 'Acceso a zona cercana al DJ booth',
+      bs_b3: 'Eventos privados',
+      bs_b4: 'Zonas exclusivas',
+      bs_b5: 'Interacción con staff',
 
       /* Buttons */
       btn_buy_vip:     'Obtener VIP',
@@ -1444,58 +1448,48 @@ document.addEventListener('DOMContentLoaded', initHeroVisualizer);
       btn_buy_founder: 'Reclamar Pase Fundador',
       btn_buy_bs:      'Obtener Pase Backstage',
 
-      /* Compare note */
+      /* Footer note */
       vip_compare_note: 'Todas las membresías se compran dentro de Roblox mediante Developer Products. Los precios se anunciarán en el lanzamiento.',
     }
   };
 
-  Object.keys(ext).forEach(lang => Object.assign(TRANSLATIONS[lang], ext[lang]));
+  /* Merge safely — addVIPKeys runs before DOMContentLoaded,
+     so TRANSLATIONS already exists from the top of the file. */
+  Object.keys(keys).forEach(lang => {
+    if (TRANSLATIONS[lang]) Object.assign(TRANSLATIONS[lang], keys[lang]);
+  });
 })();
 
-/* ── VIP Buy Button interactions ──────────────────────────────── */
-function initVIPButtons() {
-  document.querySelectorAll('.vip-btn[data-tier]').forEach(btn => {
+/* ── VIP button click feedback ────────────────────────────── */
+function initMSButtons() {
+  document.querySelectorAll('.ms-btn[data-tier]').forEach(btn => {
     btn.addEventListener('click', function () {
-      const tier  = this.getAttribute('data-tier');
-      const lang  = currentLang;
-      const msgs  = {
-        en: { vip: '✓ Coming at launch!', royal: '✓ Coming at launch!', founder: '✓ Limited — coming soon!', backstage: '✓ Coming at launch!' },
-        es: { vip: '✓ Disponible en el lanzamiento!', royal: '✓ Disponible en el lanzamiento!', founder: '✓ Limitado — ¡próximamente!', backstage: '✓ Disponible en el lanzamiento!' },
-      };
-      const original = this.querySelector('span[data-i18n]').textContent;
-      const msg      = (msgs[lang] || msgs.en)[tier] || '✓ Soon!';
+      const span = this.querySelector('span[data-i18n]');
+      if (!span) return;
 
-      this.querySelector('span[data-i18n]').textContent = msg;
+      const original = span.textContent;
+      const lang = window.INSOMNIA ? window.INSOMNIA.currentLang() : 'en';
+      const msg = lang === 'es' ? '✓ ¡Próximamente!' : '✓ Coming soon!';
+
+      span.textContent = msg;
+      this.style.opacity = '0.72';
       this.disabled = true;
-      this.style.opacity = '0.75';
 
       setTimeout(() => {
-        this.querySelector('span[data-i18n]').textContent = original;
-        this.disabled  = false;
+        span.textContent = original;
         this.style.opacity = '';
+        this.disabled = false;
       }, 2800);
     });
   });
 }
 
-/* ── Scroll reveal for VIP cards ──────────────────────────────── */
-function initVIPScrollReveal() {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const delay = entry.target.style.getPropertyValue('--sr-delay') || '0s';
-        entry.target.style.transitionDelay = delay;
-        entry.target.classList.add('is-visible');
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.vip-card.scroll-reveal, .vip-compare-note.scroll-reveal').forEach(el => obs.observe(el));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initVIPButtons();
-  initVIPScrollReveal();
-  setLanguage(currentLang);
+/* Init on DOM ready */
+document.addEventListener('DOMContentLoaded', function () {
+  initMSButtons();
+  /* Re-run setLanguage so VIP keys render in the correct language
+     immediately — even if the browser default differs from stored pref */
+  if (typeof setLanguage === 'function') {
+    setLanguage(localStorage.getItem('insomnia_lang') || 'en');
+  }
 });
