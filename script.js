@@ -1493,3 +1493,214 @@ document.addEventListener('DOMContentLoaded', function () {
     setLanguage(localStorage.getItem('insomnia_lang') || 'en');
   }
 });
+
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 2C — HALL OF FAME  (hf-* namespace)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Translations ─────────────────────────────────────────────── */
+(function addHOFKeys() {
+  const keys = {
+    en: {
+      hof_eyebrow:           'Community Recognition',
+      hof_title:             'Hall of Fame',
+      hof_intro:             'Our supporters keep the night alive. Every contribution helps us build bigger events, better experiences and a stronger community.',
+
+      /* Tabs */
+      hof_tab_weekly:  'Weekly',
+      hof_tab_monthly: 'Monthly',
+      hof_tab_alltime: 'All-Time',
+
+      /* Rank badges */
+      rank_badge_legend:    'Legend',
+      rank_badge_royal:     'Royal Supporter',
+      rank_badge_vip:       'VIP Supporter',
+      rank_badge_supporter: 'Supporter',
+
+      /* Ranking note */
+      hof_ranking_note: 'Rankings update live from Roblox game data. Placeholder values shown.',
+
+      /* Awards section */
+      hof_awards_eyebrow: 'Supporter Award Levels',
+
+      hof_req_label:          'Required',
+      hof_featured_ribbon:    'Top Tier',
+      hof_award_royal_name:   'Royal Supporter',
+      hof_award_diamond_name: 'Diamond Royal',
+      hof_award_legend_name:  'INSOMNIA Legend',
+
+      /* Royal Supporter benefits */
+      royal_sup_b1: 'Personalized digital certificate',
+      royal_sup_b2: 'Official Discord mention',
+      royal_sup_b3: 'Name on the Hall of Fame',
+      royal_sup_b4: 'Royal Supporter role',
+      royal_sup_b5: 'Eligible for special physical plaque',
+
+      /* Diamond Royal benefits */
+      diamond_b1: 'Premium physical plaque',
+      diamond_b2: 'Official thank-you letter',
+      diamond_b3: 'Permanent name inside the map',
+      diamond_b4: 'Diamond Royal role',
+      diamond_b5: 'Seasonal named VIP table',
+      diamond_b6: 'Special video or announcement',
+
+      /* INSOMNIA Legend benefits */
+      legend_b1: 'Premium Legend trophy or plaque',
+      legend_b2: 'Luxury physical letter',
+      legend_b3: 'Dedicated event',
+      legend_b4: 'Statue or special area in-game',
+      legend_b5: 'Permanent recognition',
+      legend_b6: 'Exclusive merch box',
+
+      /* Physical note */
+      hof_physical_note: 'Physical rewards may depend on eligibility, availability, shipping country and verified total supported.',
+
+      /* Buttons */
+      hof_btn_ranking: 'View Full Ranking',
+      hof_btn_claim:   'Claim Recognition',
+      hof_btn_discord: 'Join Discord',
+    },
+
+    es: {
+      hof_eyebrow:           'Reconocimiento de la Comunidad',
+      hof_title:             'Hall of Fame',
+      hof_intro:             'Nuestros supporters mantienen viva la noche. Cada contribución ayuda a construir eventos más grandes, mejores experiencias y una comunidad más fuerte.',
+
+      /* Tabs */
+      hof_tab_weekly:  'Semanal',
+      hof_tab_monthly: 'Mensual',
+      hof_tab_alltime: 'Histórico',
+
+      /* Rank badges */
+      rank_badge_legend:    'Leyenda',
+      rank_badge_royal:     'Royal Supporter',
+      rank_badge_vip:       'VIP Supporter',
+      rank_badge_supporter: 'Supporter',
+
+      /* Ranking note */
+      hof_ranking_note: 'Los rankings se actualizan desde los datos del juego en Roblox. Valores de ejemplo mostrados.',
+
+      /* Awards section */
+      hof_awards_eyebrow: 'Niveles de Reconocimiento',
+
+      hof_req_label:          'Requerido',
+      hof_featured_ribbon:    'Top Nivel',
+      hof_award_royal_name:   'Royal Supporter',
+      hof_award_diamond_name: 'Diamond Royal',
+      hof_award_legend_name:  'Leyenda INSOMNIA',
+
+      /* Royal Supporter benefits */
+      royal_sup_b1: 'Certificado digital personalizado',
+      royal_sup_b2: 'Mención oficial en Discord',
+      royal_sup_b3: 'Nombre en el Hall of Fame',
+      royal_sup_b4: 'Rol Royal Supporter',
+      royal_sup_b5: 'Elegible para placa física especial',
+
+      /* Diamond Royal benefits */
+      diamond_b1: 'Placa física premium',
+      diamond_b2: 'Carta oficial de agradecimiento',
+      diamond_b3: 'Nombre permanente en el mapa',
+      diamond_b4: 'Rol Diamond Royal',
+      diamond_b5: 'Mesa VIP nombrada por temporada',
+      diamond_b6: 'Video o anuncio especial',
+
+      /* INSOMNIA Legend benefits */
+      legend_b1: 'Trofeo o placa Legend premium',
+      legend_b2: 'Carta física de lujo',
+      legend_b3: 'Evento dedicado',
+      legend_b4: 'Estatua o zona especial dentro del juego',
+      legend_b5: 'Reconocimiento permanente',
+      legend_b6: 'Merch box exclusivo',
+
+      /* Physical note */
+      hof_physical_note: 'Las recompensas físicas estarán sujetas a elegibilidad, disponibilidad, país de envío y verificación del total donado.',
+
+      /* Buttons */
+      hof_btn_ranking: 'Ver ranking completo',
+      hof_btn_claim:   'Reclamar reconocimiento',
+      hof_btn_discord: 'Unirse al Discord',
+    }
+  };
+
+  Object.keys(keys).forEach(lang => {
+    if (TRANSLATIONS[lang]) Object.assign(TRANSLATIONS[lang], keys[lang]);
+  });
+})();
+
+/* ── Tab switching ────────────────────────────────────────────── */
+function initHOFTabs() {
+  const tabs   = document.querySelectorAll('.hf-tab');
+  const panels = document.querySelectorAll('.hf-panel');
+
+  if (!tabs.length) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      const target = this.getAttribute('data-tab');
+
+      /* Update tab active state */
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+
+      /* Show the matching panel, hide others */
+      panels.forEach(panel => {
+        const isTarget = panel.id === `hf-panel-${target}`;
+        panel.classList.toggle('hf-panel-hidden', !isTarget);
+
+        /* Re-trigger CSS row animations when switching tabs */
+        if (isTarget) {
+          panel.querySelectorAll('.hf-rank-row').forEach(row => {
+            row.style.animation = 'none';
+            /* Force reflow so animation re-runs */
+            void row.offsetWidth;
+            row.style.animation = '';
+          });
+        }
+      });
+    });
+  });
+}
+
+/* ── Claim button feedback ────────────────────────────────────── */
+function initHOFClaimButtons() {
+  document.querySelectorAll('.hf-claim-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const lang = window.INSOMNIA ? window.INSOMNIA.currentLang() : 'en';
+      const original = this.textContent;
+      const msg = lang === 'es' ? '✓ Próximamente' : '✓ Coming soon';
+
+      this.textContent = msg;
+      this.disabled = true;
+      this.style.opacity = '0.72';
+
+      setTimeout(() => {
+        this.textContent = original;
+        this.disabled = false;
+        this.style.opacity = '';
+      }, 2800);
+    });
+  });
+}
+
+/* ── Wire Discord button ──────────────────────────────────────── */
+function initHOFDiscordBtn() {
+  const btn = document.getElementById('hf-discord-btn');
+  if (btn && window.INSOMNIA && window.INSOMNIA.EXTERNAL_LINKS) {
+    btn.href = window.INSOMNIA.EXTERNAL_LINKS.discord || '#';
+  }
+}
+
+/* ── Init all on DOMContentLoaded ────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function () {
+  initHOFTabs();
+  initHOFClaimButtons();
+  initHOFDiscordBtn();
+  /* Re-apply language so all new HOF keys render immediately */
+  if (typeof setLanguage === 'function') {
+    setLanguage(localStorage.getItem('insomnia_lang') || 'en');
+  }
+});

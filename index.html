@@ -862,17 +862,350 @@
     </section>
 
 
+    <!-- ═══════════════════════════════════════════
+         HALL OF FAME — Phase 2C
+    ════════════════════════════════════════════ -->
+    <section class="hf-section" id="hof" aria-label="Hall of Fame">
+
+      <!-- Ambient BG -->
+      <div class="hf-bg" aria-hidden="true">
+        <div class="hf-bg-orb hf-bg-orb-1"></div>
+        <div class="hf-bg-orb hf-bg-orb-2"></div>
+        <div class="hf-bg-orb hf-bg-orb-3"></div>
+        <div class="hf-bg-line"></div>
+      </div>
+
+      <div class="hf-container">
+
+        <!-- ── Header ── -->
+        <div class="hf-header">
+          <div class="hf-eyebrow">
+            <span class="hf-eyebrow-line" aria-hidden="true"></span>
+            <span data-i18n="hof_eyebrow">Community Recognition</span>
+            <span class="hf-eyebrow-line hf-eyebrow-line-r" aria-hidden="true"></span>
+          </div>
+          <h2 class="hf-title">
+            <span class="hf-title-icon" aria-hidden="true">◆</span>
+            <span data-i18n="hof_title">Hall of Fame</span>
+            <span class="hf-title-icon" aria-hidden="true">◆</span>
+          </h2>
+          <p class="hf-intro" data-i18n="hof_intro">
+            Our supporters keep the night alive. Every contribution helps us build bigger events, better experiences and a stronger community.
+          </p>
+        </div>
+
+        <!-- ══════════════════════════════════════
+             RANKING BLOCK
+        ═══════════════════════════════════════ -->
+        <div class="hf-ranking-wrap">
+
+          <!-- Tab filters -->
+          <div class="hf-tabs" role="tablist" aria-label="Ranking period">
+            <button class="hf-tab active" data-tab="weekly"  role="tab" aria-selected="true"  data-i18n="hof_tab_weekly">Weekly</button>
+            <button class="hf-tab"        data-tab="monthly" role="tab" aria-selected="false" data-i18n="hof_tab_monthly">Monthly</button>
+            <button class="hf-tab"        data-tab="alltime" role="tab" aria-selected="false" data-i18n="hof_tab_alltime">All-Time</button>
+          </div>
+
+          <!-- Ranking panels — one per tab, all rendered in DOM -->
+          <!-- WEEKLY -->
+          <div class="hf-panel" id="hf-panel-weekly" role="tabpanel">
+            <ol class="hf-ranking-list">
+              <li class="hf-rank-row hf-rank-1" style="--ri:0">
+                <div class="hf-medal hf-medal-gold" aria-label="1st place">
+                  <span class="hf-medal-num">1</span>
+                  <span class="hf-medal-glow" aria-hidden="true"></span>
+                </div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-gold" aria-hidden="true">K</span>
+                  <div class="hf-rank-info">
+                    <span class="hf-rank-name">Kevinlafigura</span>
+                    <span class="hf-rank-badge hf-badge-royal" data-i18n="rank_badge_royal">Royal Supporter</span>
+                  </div>
+                </div>
+                <div class="hf-rank-amount">
+                  <span class="hf-amount-val">100,000</span>
+                  <span class="hf-amount-unit">R$</span>
+                </div>
+              </li>
+              <li class="hf-rank-row hf-rank-2" style="--ri:1">
+                <div class="hf-medal hf-medal-silver" aria-label="2nd place">
+                  <span class="hf-medal-num">2</span>
+                  <span class="hf-medal-glow" aria-hidden="true"></span>
+                </div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-silver" aria-hidden="true">N</span>
+                  <div class="hf-rank-info">
+                    <span class="hf-rank-name">NightKing</span>
+                    <span class="hf-rank-badge hf-badge-vip" data-i18n="rank_badge_vip">VIP Supporter</span>
+                  </div>
+                </div>
+                <div class="hf-rank-amount">
+                  <span class="hf-amount-val">75,000</span>
+                  <span class="hf-amount-unit">R$</span>
+                </div>
+              </li>
+              <li class="hf-rank-row hf-rank-3" style="--ri:2">
+                <div class="hf-medal hf-medal-bronze" aria-label="3rd place">
+                  <span class="hf-medal-num">3</span>
+                  <span class="hf-medal-glow" aria-hidden="true"></span>
+                </div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-bronze" aria-hidden="true">L</span>
+                  <div class="hf-rank-info">
+                    <span class="hf-rank-name">LunaVibes</span>
+                    <span class="hf-rank-badge hf-badge-supporter" data-i18n="rank_badge_supporter">Supporter</span>
+                  </div>
+                </div>
+                <div class="hf-rank-amount">
+                  <span class="hf-amount-val">50,000</span>
+                  <span class="hf-amount-unit">R$</span>
+                </div>
+              </li>
+              <li class="hf-rank-row" style="--ri:3">
+                <div class="hf-medal hf-medal-plain" aria-label="4th place">
+                  <span class="hf-medal-num">4</span>
+                </div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-plain" aria-hidden="true">S</span>
+                  <div class="hf-rank-info">
+                    <span class="hf-rank-name">SolsticeX</span>
+                    <span class="hf-rank-badge hf-badge-supporter" data-i18n="rank_badge_supporter">Supporter</span>
+                  </div>
+                </div>
+                <div class="hf-rank-amount">
+                  <span class="hf-amount-val">32,500</span>
+                  <span class="hf-amount-unit">R$</span>
+                </div>
+              </li>
+              <li class="hf-rank-row" style="--ri:4">
+                <div class="hf-medal hf-medal-plain" aria-label="5th place">
+                  <span class="hf-medal-num">5</span>
+                </div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-plain" aria-hidden="true">V</span>
+                  <div class="hf-rank-info">
+                    <span class="hf-rank-name">Velvetine</span>
+                    <span class="hf-rank-badge hf-badge-supporter" data-i18n="rank_badge_supporter">Supporter</span>
+                  </div>
+                </div>
+                <div class="hf-rank-amount">
+                  <span class="hf-amount-val">18,000</span>
+                  <span class="hf-amount-unit">R$</span>
+                </div>
+              </li>
+            </ol>
+            <p class="hf-ranking-note" data-i18n="hof_ranking_note">Rankings update live from Roblox game data. Placeholder values shown.</p>
+          </div>
+
+          <!-- MONTHLY (same data, different tab) -->
+          <div class="hf-panel hf-panel-hidden" id="hf-panel-monthly" role="tabpanel">
+            <ol class="hf-ranking-list">
+              <li class="hf-rank-row hf-rank-1" style="--ri:0">
+                <div class="hf-medal hf-medal-gold"><span class="hf-medal-num">1</span><span class="hf-medal-glow" aria-hidden="true"></span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-gold" aria-hidden="true">K</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">Kevinlafigura</span><span class="hf-rank-badge hf-badge-royal" data-i18n="rank_badge_royal">Royal Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">380,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row hf-rank-2" style="--ri:1">
+                <div class="hf-medal hf-medal-silver"><span class="hf-medal-num">2</span><span class="hf-medal-glow" aria-hidden="true"></span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-silver" aria-hidden="true">Z</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">ZephyrNova</span><span class="hf-rank-badge hf-badge-vip" data-i18n="rank_badge_vip">VIP Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">210,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row hf-rank-3" style="--ri:2">
+                <div class="hf-medal hf-medal-bronze"><span class="hf-medal-num">3</span><span class="hf-medal-glow" aria-hidden="true"></span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-bronze" aria-hidden="true">N</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">NightKing</span><span class="hf-rank-badge hf-badge-vip" data-i18n="rank_badge_vip">VIP Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">175,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row" style="--ri:3">
+                <div class="hf-medal hf-medal-plain"><span class="hf-medal-num">4</span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-plain" aria-hidden="true">L</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">LunaVibes</span><span class="hf-rank-badge hf-badge-supporter" data-i18n="rank_badge_supporter">Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">98,500</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row" style="--ri:4">
+                <div class="hf-medal hf-medal-plain"><span class="hf-medal-num">5</span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-plain" aria-hidden="true">A</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">AuroraX</span><span class="hf-rank-badge hf-badge-supporter" data-i18n="rank_badge_supporter">Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">61,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+            </ol>
+            <p class="hf-ranking-note" data-i18n="hof_ranking_note">Rankings update live from Roblox game data. Placeholder values shown.</p>
+          </div>
+
+          <!-- ALL-TIME -->
+          <div class="hf-panel hf-panel-hidden" id="hf-panel-alltime" role="tabpanel">
+            <ol class="hf-ranking-list">
+              <li class="hf-rank-row hf-rank-1" style="--ri:0">
+                <div class="hf-medal hf-medal-gold"><span class="hf-medal-num">1</span><span class="hf-medal-glow" aria-hidden="true"></span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-gold" aria-hidden="true">K</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">Kevinlafigura</span><span class="hf-rank-badge hf-badge-legend" data-i18n="rank_badge_legend">Legend</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">1,240,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row hf-rank-2" style="--ri:1">
+                <div class="hf-medal hf-medal-silver"><span class="hf-medal-num">2</span><span class="hf-medal-glow" aria-hidden="true"></span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-silver" aria-hidden="true">N</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">NightKing</span><span class="hf-rank-badge hf-badge-royal" data-i18n="rank_badge_royal">Royal Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">820,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row hf-rank-3" style="--ri:2">
+                <div class="hf-medal hf-medal-bronze"><span class="hf-medal-num">3</span><span class="hf-medal-glow" aria-hidden="true"></span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-bronze" aria-hidden="true">Z</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">ZephyrNova</span><span class="hf-rank-badge hf-badge-royal" data-i18n="rank_badge_royal">Royal Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">590,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row" style="--ri:3">
+                <div class="hf-medal hf-medal-plain"><span class="hf-medal-num">4</span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-plain" aria-hidden="true">L</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">LunaVibes</span><span class="hf-rank-badge hf-badge-vip" data-i18n="rank_badge_vip">VIP Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">305,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+              <li class="hf-rank-row" style="--ri:4">
+                <div class="hf-medal hf-medal-plain"><span class="hf-medal-num">5</span></div>
+                <div class="hf-rank-user">
+                  <span class="hf-rank-avatar hf-avatar-plain" aria-hidden="true">A</span>
+                  <div class="hf-rank-info"><span class="hf-rank-name">AuroraX</span><span class="hf-rank-badge hf-badge-vip" data-i18n="rank_badge_vip">VIP Supporter</span></div>
+                </div>
+                <div class="hf-rank-amount"><span class="hf-amount-val">198,000</span><span class="hf-amount-unit">R$</span></div>
+              </li>
+            </ol>
+            <p class="hf-ranking-note" data-i18n="hof_ranking_note">Rankings update live from Roblox game data. Placeholder values shown.</p>
+          </div>
+
+          <!-- View full ranking button -->
+          <div class="hf-ranking-footer">
+            <button class="hf-action-btn hf-btn-ghost" data-i18n="hof_btn_ranking">View Full Ranking</button>
+          </div>
+
+        </div><!-- /hf-ranking-wrap -->
+
+        <!-- ══════════════════════════════════════
+             AWARD LEVELS
+        ═══════════════════════════════════════ -->
+        <div class="hf-awards-header">
+          <div class="hf-eyebrow">
+            <span class="hf-eyebrow-line" aria-hidden="true"></span>
+            <span data-i18n="hof_awards_eyebrow">Supporter Award Levels</span>
+            <span class="hf-eyebrow-line hf-eyebrow-line-r" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="hf-awards-grid">
+
+          <!-- ── ROYAL SUPPORTER ── -->
+          <article class="hf-award-card hf-award-royal">
+            <div class="hf-award-shine" aria-hidden="true"></div>
+            <div class="hf-award-top">
+              <div class="hf-award-icon hf-award-icon-royal" aria-hidden="true">♛</div>
+              <div class="hf-award-req">
+                <span class="hf-award-req-label" data-i18n="hof_req_label">Required</span>
+                <span class="hf-award-req-val">100,000 R$</span>
+              </div>
+            </div>
+            <h3 class="hf-award-name" data-i18n="hof_award_royal_name">Royal Supporter</h3>
+            <ul class="hf-award-list">
+              <li><span class="hf-award-dot hf-dot-royal" aria-hidden="true">◆</span><span data-i18n="royal_sup_b1">Personalized digital certificate</span></li>
+              <li><span class="hf-award-dot hf-dot-royal" aria-hidden="true">◆</span><span data-i18n="royal_sup_b2">Official Discord mention</span></li>
+              <li><span class="hf-award-dot hf-dot-royal" aria-hidden="true">◆</span><span data-i18n="royal_sup_b3">Name on the Hall of Fame</span></li>
+              <li><span class="hf-award-dot hf-dot-royal" aria-hidden="true">◆</span><span data-i18n="royal_sup_b4">Royal Supporter role</span></li>
+              <li><span class="hf-award-dot hf-dot-royal" aria-hidden="true">◆</span><span data-i18n="royal_sup_b5">Eligible for special physical plaque</span></li>
+            </ul>
+            <button class="hf-claim-btn hf-claim-royal" data-i18n="hof_btn_claim">Claim Recognition</button>
+          </article>
+
+          <!-- ── DIAMOND ROYAL ── -->
+          <article class="hf-award-card hf-award-diamond hf-award-featured">
+            <div class="hf-award-shine" aria-hidden="true"></div>
+            <div class="hf-award-ribbon" data-i18n="hof_featured_ribbon">Top Tier</div>
+            <div class="hf-award-top">
+              <div class="hf-award-icon hf-award-icon-diamond" aria-hidden="true">◈</div>
+              <div class="hf-award-req">
+                <span class="hf-award-req-label" data-i18n="hof_req_label">Required</span>
+                <span class="hf-award-req-val">1,000,000 R$</span>
+              </div>
+            </div>
+            <h3 class="hf-award-name" data-i18n="hof_award_diamond_name">Diamond Royal</h3>
+            <ul class="hf-award-list">
+              <li><span class="hf-award-dot hf-dot-diamond" aria-hidden="true">◆</span><span data-i18n="diamond_b1">Premium physical plaque</span></li>
+              <li><span class="hf-award-dot hf-dot-diamond" aria-hidden="true">◆</span><span data-i18n="diamond_b2">Official thank-you letter</span></li>
+              <li><span class="hf-award-dot hf-dot-diamond" aria-hidden="true">◆</span><span data-i18n="diamond_b3">Permanent name inside the map</span></li>
+              <li><span class="hf-award-dot hf-dot-diamond" aria-hidden="true">◆</span><span data-i18n="diamond_b4">Diamond Royal role</span></li>
+              <li><span class="hf-award-dot hf-dot-diamond" aria-hidden="true">◆</span><span data-i18n="diamond_b5">Seasonal named VIP table</span></li>
+              <li><span class="hf-award-dot hf-dot-diamond" aria-hidden="true">◆</span><span data-i18n="diamond_b6">Special video or announcement</span></li>
+            </ul>
+            <button class="hf-claim-btn hf-claim-diamond" data-i18n="hof_btn_claim">Claim Recognition</button>
+          </article>
+
+          <!-- ── INSOMNIA LEGEND ── -->
+          <article class="hf-award-card hf-award-legend">
+            <div class="hf-award-shine" aria-hidden="true"></div>
+            <div class="hf-award-top">
+              <div class="hf-award-icon hf-award-icon-legend" aria-hidden="true">★</div>
+              <div class="hf-award-req">
+                <span class="hf-award-req-label" data-i18n="hof_req_label">Required</span>
+                <span class="hf-award-req-val">10,000,000 R$</span>
+              </div>
+            </div>
+            <h3 class="hf-award-name" data-i18n="hof_award_legend_name">INSOMNIA Legend</h3>
+            <ul class="hf-award-list">
+              <li><span class="hf-award-dot hf-dot-legend" aria-hidden="true">◆</span><span data-i18n="legend_b1">Premium Legend trophy or plaque</span></li>
+              <li><span class="hf-award-dot hf-dot-legend" aria-hidden="true">◆</span><span data-i18n="legend_b2">Luxury physical letter</span></li>
+              <li><span class="hf-award-dot hf-dot-legend" aria-hidden="true">◆</span><span data-i18n="legend_b3">Dedicated event</span></li>
+              <li><span class="hf-award-dot hf-dot-legend" aria-hidden="true">◆</span><span data-i18n="legend_b4">Statue or special area in-game</span></li>
+              <li><span class="hf-award-dot hf-dot-legend" aria-hidden="true">◆</span><span data-i18n="legend_b5">Permanent recognition</span></li>
+              <li><span class="hf-award-dot hf-dot-legend" aria-hidden="true">◆</span><span data-i18n="legend_b6">Exclusive merch box</span></li>
+            </ul>
+            <button class="hf-claim-btn hf-claim-legend" data-i18n="hof_btn_claim">Claim Recognition</button>
+          </article>
+
+        </div><!-- /hf-awards-grid -->
+
+        <!-- Physical rewards note -->
+        <div class="hf-physical-note">
+          <span class="hf-note-icon" aria-hidden="true">◈</span>
+          <p data-i18n="hof_physical_note">Physical rewards may depend on eligibility, availability, shipping country and verified total supported.</p>
+        </div>
+
+        <!-- Bottom CTA row -->
+        <div class="hf-cta-row">
+          <button class="hf-action-btn hf-btn-primary" data-i18n="hof_btn_ranking">View Full Ranking</button>
+          <button class="hf-action-btn hf-btn-secondary" data-i18n="hof_btn_claim">Claim Recognition</button>
+          <a href="#" class="hf-action-btn hf-btn-discord" id="hf-discord-btn" target="_blank" rel="noopener noreferrer" data-i18n="hof_btn_discord">Join Discord</a>
+        </div>
+
+      </div><!-- /hf-container -->
+    </section>
+
     <!-- ─── PHASE PROGRESS PLACEHOLDER ──────────── -->
     <section class="phase-placeholder" id="coming-soon" aria-label="Coming soon">
       <div class="phase-inner">
         <div class="phase-icon" aria-hidden="true">◈</div>
         <h2 class="phase-title" data-i18n="phase_title">More sections loading soon</h2>
         <p class="phase-sub" data-i18n="phase_sub">
-          Hall of Fame · Reservations · Jobs · Gallery · Community · Business
+          Reservations · Jobs · Gallery · Community · Business
         </p>
         <div class="phase-progress" aria-hidden="true">
-          <span class="progress-label" data-i18n="progress_label">Phase 2B of 3 — VIP</span>
-          <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+          <span class="progress-label" data-i18n="progress_label">Phase 2C of 3 — Hall of Fame</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:72%"></div></div>
         </div>
       </div>
     </section>
